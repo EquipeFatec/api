@@ -7,7 +7,7 @@ FATEC Profº Jessen Vidal - São José dos Campos
 
 # :trophy: Equipe
 - ***Product Owner*** <br/>
-[Ana Beatriz Silva de Araújo Leite](https://github.com/analeite) [<center><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></center>] <br/>
+[Ana Beatriz Silva de Araújo Leite](https://github.com/analeite) [<center><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></center>](https://www.linkedin.com/mwlite/in/ana-beatriz-araujo) <br/>
 - ***Scrum Master*** <br/>
 [João Oscalino Lemos](https://github.com/derikbrik) [<center><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></center>] <br/>
 - ***Dev Team*** <br/>
@@ -20,4 +20,40 @@ FATEC Profº Jessen Vidal - São José dos Campos
 <hr/>
 
 # :office: Cliente
-A [**Oracle Corporation**](https://www.oracle.com/br/index.html) é uma empresa multinacional de tecnologia e informática, especializada no desenvolvimento e comercialização de hardware e softwares e de banco de dados.
+A [**Oracle Corporation**](https://www.oracle.com/br/index.html) é uma empresa multinacional de tecnologia e informática, especializada no desenvolvimento e comercialização de hardware e softwares e de banco de dados. <br/>
+
+<hr/>
+
+# :computer: Sobre o Projeto
+**Problema**
+<br/>
+Uma empresa de calçados tem necessidade de conhecer melhor os seus clientes e segmentá-los para descobrir novas demandas de produtos, melhorando a visibilidade da base de clientes. Essa aplicação também pode auxiliar na tomada de decisões dos gerentes e diretores com relação a campanhas e compras de determinados produtos.
+<br/><br/>
+**Solução**
+<br/>
+Criado pela equipe _Sanja Valley_, este projeto visa desenvolver uma aplicação para Análise de Dados da empresa de Calçados denominada _Hey Alexia_, com a importação de arquivos para segmentação e verificação das informações, a fim de auxiliar a gestão da empresa ao permitir visualizar gráficos e dados referentes à estas segmentações. <br/>
+
+<hr/>
+
+# :dart: Requisitos
+**Requisitos Funcionais**
+- Cadastro: Carregar dados dos clientes por um arquivo CSV
+- Cadastro de ADM do sistema, Gerentes e Diretores
+- Envio de email confirmando cadastro para os usuários.
+- Segmentar o público segundo: Idade, gênero, região e gastos, produtos adquiridos, produtos não adquiridos (white space analysis marketing)
+- Relatórios com informação dos consumidores. 
+- Análise de prioridade de cliente de acordo com o tipo de gasto.
+- Consultas estratégicas e consultas de análises pelo menos 3 de cada.
+- Na consulta o sistema mostra a priorização de acordo com a solicitação do usuário.
+- Direcionar cada tipo de público para a mídia relacionada. (colocar 3 tipos de mídias).
+<br/><br/>
+
+**Requisitos Não Funcionais**
+- Plataforma web/desktop (Mobile First)
+- Documentações
+- Wireframes
+- Diagramas de caso de uso
+- Diagramas de arquitetura
+- Diagrama de MER
+- Instruções de uso
+- Normalização como ferramenta de projeto.
