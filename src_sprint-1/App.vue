@@ -25,7 +25,7 @@
     </div>
       <div class="col-sm-4">
    <Card style="width: 25rem; height: 25rem; margin-bottom: 5em; background-color: #F2E0F7">
-      <template #title> Valor unitário (R$)) </template>
+      <template #title> Valor unitário (R$) </template>
     <template #content>
       <div class="container">
         <h1 v-bind:key="this.produtoExibido.id">{{this.produtoExibido.valor || ''}}</h1>
