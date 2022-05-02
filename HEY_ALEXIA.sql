@@ -1,0 +1,1 @@
+alter user HR IDENTIFIED by root;
