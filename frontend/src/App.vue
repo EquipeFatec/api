@@ -1,8 +1,6 @@
 <template>
   <Menu></Menu>
-  <div 
-    style="text-align: center; font-size: 40pt; text-shadow: 1px 1px 3px black"
-  >
+  <div style="text-align: center; font-size: 40pt; text-shadow: 1px 1px 3px black">
     Hey Alexia
   </div>
 
@@ -27,10 +25,10 @@
         </td>
         <td>
           <Card style="width: 25rem; height: 25rem; margin-bottom: 6em; background-color: #F2E0F7">
-            <template #title> Valor unitário (R$) </template>
+            <template #title> Clientes </template>
             <template #content>
               <div class="container">
-                <h1 v-bind:key="this.produtoExibido.id">{{ this.produtoExibido.valor || '' }}</h1>
+                <Chart type="pie" :data="chartData" :options="lightOptions" />
               </div>
             </template>
           </Card>
@@ -46,6 +44,7 @@ import Menu from "./components/Menu.vue";
 import Card from "primevue/card";
 import axios from "axios";
 import Button from "primevue/button";
+import Chart from "primevue/chart";
 
 export default {
   name: "App",
@@ -53,6 +52,7 @@ export default {
     Menu,
     Card,
     Button,
+    Chart
   },
   mounted() {
     axios.get("http://localhost:8081/produto").then((response) => {
@@ -69,15 +69,33 @@ export default {
       displayModal: false,
       itens: [],
       produtoExibido: {},
+      chartData: {
+        labels: ['Feminino', 'Masculino'],
+        datasets: [
+          {
+            data: [63, 33],
+            backgroundColor: ["#AF72B0", "#2D8BBA"],
+            hoverBackgroundColor: ["#B469B4", "#477EBF"]
+          }
+        ]
+      },
+      lightOptions: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#495057'
+            }
+          }
+        }
+      }
     };
-  },
+  }
 };
 </script>
 
 <style>
 .container {
   margin: 0%;
-  margin-left: 15%;
   max-width: 450px;
   font-style: italic;
   font-family: "Times New Roman", Times, serif;
@@ -85,7 +103,7 @@ export default {
   font-size: 20pt;
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .container ul {
