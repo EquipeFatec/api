@@ -8,14 +8,15 @@
     <table style="border: none;" cellspacing="15">
       <tr>
         <td>
-          <Card style="width: 25rem; height:26rem; margin-bottom: 6em; background-color: #F2E0F7">
+          <Card style="width: 25rem; height:25rem; margin-bottom: 6em; background-color: #F2E0F7">
             <template #title> Produtos Mais vendidos </template>
             <template #content>
-              <div class="container">
+              <div>
                   <div class="card">
-                        <DataTable :value="itens" responsiveLayout="scroll">
-                            <Column field="nome" header="Nome" :sortable="true"></Column>
-                            <Column field="valor" header="Valor Unitário" :sortable="true"></Column>
+                        <DataTable :value="itens" class="p-datatable-sm" responsiveLayout="scroll">
+                            <Column field="0" header="Nome" :sortable="true"></Column>
+                            <Column field="1" header="Quantidade" :sortable="true"></Column>
+                            <Column field="2" header="Valor Total" :sortable="true"></Column>
                        </DataTable>
                   </div>
               </div>
@@ -23,7 +24,7 @@
           </Card>
         </td>
         <td>
-          <Card style="width: 25rem; height: 26rem; margin-bottom: 6em; background-color: #F2E0F7">
+          <Card style="width: 25rem; height: 25rem; margin-bottom: 6em; background-color: #F2E0F7">
             <template #title> Clientes </template>
             <template #content>
               <div class="container">
@@ -58,9 +59,13 @@ export default {
     Column,
   },
   mounted() {
-    axios.get("http://localhost:8081/produto").then((response) => {
+    axios.get("http://localhost:8081/item-venda/top").then((response) => {
       this.itens = response.data;
     });
+    axios.get("http://localhost:8081/cliente/genero").then((response) => {
+      console.log(response.data)
+      this.clientesGenero = response.data;
+    })
   },
   methods: {
     exibir(produto) {
@@ -72,6 +77,7 @@ export default {
       displayModal: false,
       itens: [],
       produtoExibido: {},
+      clientesGenero: [],
       chartData: {
         labels: ["Feminino", "Masculino"],
         datasets: [
