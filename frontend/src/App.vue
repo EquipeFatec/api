@@ -8,23 +8,22 @@
     <table style="border: none;" cellspacing="15">
       <tr>
         <td>
-          <Card style="width: 25rem; height:25rem; margin-bottom: 6em; background-color: #F2E0F7">
+          <Card style="width: 25rem; height:26rem; margin-bottom: 6em; background-color: #F2E0F7">
             <template #title> Produtos Mais vendidos </template>
             <template #content>
               <div class="container">
-                <div>
-                  <ul>
-                    <li v-for="item in itens" @click="exibir(item)" v-bind:key="item.id">
-                      {{ item.nome }}
-                    </li>
-                  </ul>
-                </div>
+                  <div class="card">
+                        <DataTable :value="itens" responsiveLayout="scroll">
+                            <Column field="nome" header="Nome" :sortable="true"></Column>
+                            <Column field="valor" header="Valor Unitário" :sortable="true"></Column>
+                       </DataTable>
+                  </div>
               </div>
             </template>
           </Card>
         </td>
         <td>
-          <Card style="width: 25rem; height: 25rem; margin-bottom: 6em; background-color: #F2E0F7">
+          <Card style="width: 25rem; height: 26rem; margin-bottom: 6em; background-color: #F2E0F7">
             <template #title> Clientes </template>
             <template #content>
               <div class="container">
@@ -45,6 +44,8 @@ import Card from "primevue/card";
 import axios from "axios";
 import Button from "primevue/button";
 import Chart from "primevue/chart";
+import DataTable from "primevue/datatable";
+import Column from 'primevue/column';
 
 export default {
   name: "App",
@@ -52,7 +53,9 @@ export default {
     Menu,
     Card,
     Button,
-    Chart
+    Chart,
+    DataTable,
+    Column,
   },
   mounted() {
     axios.get("http://localhost:8081/produto").then((response) => {
@@ -70,26 +73,26 @@ export default {
       itens: [],
       produtoExibido: {},
       chartData: {
-        labels: ['Feminino', 'Masculino'],
+        labels: ["Feminino", "Masculino"],
         datasets: [
           {
             data: [63, 33],
             backgroundColor: ["#AF72B0", "#2D8BBA"],
-            hoverBackgroundColor: ["#B469B4", "#477EBF"]
-          }
-        ]
+            hoverBackgroundColor: ["#B469B4", "#477EBF"],
+          },
+        ],
       },
       lightOptions: {
         plugins: {
           legend: {
             labels: {
-              color: '#495057'
-            }
-          }
-        }
-      }
+              color: "#495057",
+            },
+          },
+        },
+      },
     };
-  }
+  },
 };
 </script>
 
