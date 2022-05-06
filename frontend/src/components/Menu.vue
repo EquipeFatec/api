@@ -10,8 +10,7 @@
   </div>
 
   <Dialog header="Upload de Arquivos" v-model:visible="displayModal" :style="{width: '50vw'}" :modal="true">
-    <!-- url="./upload.php" -->
-      <FileUpload name="demo[]" @upload="onUpload" :multiple="true" accept=".csv" :maxFileSize="1000000">
+      <FileUpload name="csv" :customUpload="true" @uploader="upload" @upload="onUpload" :multiple="false" accept=".txt" :maxFileSize="1000000">
           <template #empty>
             <p>Arraste e solte arquivos para Upload.</p>
           </template>
@@ -25,6 +24,7 @@
 import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
+import axios from "axios";
 
 export default {
   name: 'Menu',
@@ -42,8 +42,11 @@ export default {
     openModal() {
       this.displayModal = true;
     },
+    upload(event){
+      //axios.post("http://localhost:8081/upload/cliente", event.files[0])
+    },
     onUpload() {
-      this.$toast.add({severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000});
+      this.$toast.add({severity: 'info', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
     }
   }
 }

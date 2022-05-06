@@ -63,8 +63,7 @@ export default {
       this.itens = response.data;
     });
     axios.get("http://localhost:8081/cliente/genero").then((response) => {
-      console.log(response.data)
-      this.clientesGenero = response.data;
+      this.chartData.datasets[0].data = response.data
     })
   },
   methods: {
@@ -77,12 +76,12 @@ export default {
       displayModal: false,
       itens: [],
       produtoExibido: {},
-      clientesGenero: [],
+      clientesSexo: [],
       chartData: {
         labels: ["Feminino", "Masculino"],
         datasets: [
           {
-            data: [63, 33],
+            data: [],
             backgroundColor: ["#AF72B0", "#2D8BBA"],
             hoverBackgroundColor: ["#B469B4", "#477EBF"],
           },
