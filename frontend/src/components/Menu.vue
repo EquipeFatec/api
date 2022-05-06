@@ -1,4 +1,5 @@
 <template>
+<Toast />
   <div class="row">
       <div>
           <div class="menu">
@@ -10,7 +11,7 @@
   </div>
 
   <Dialog header="Upload de Arquivos" v-model:visible="displayModal" :style="{width: '50vw'}" :modal="true">
-      <FileUpload name="csv" :customUpload="true" @uploader="upload" @upload="onUpload" :multiple="false" accept=".txt" :maxFileSize="1000000">
+      <FileUpload name="csv" :customUpload="true" @uploader="upload" :multiple="false" accept=".txt" :maxFileSize="1000000">
           <template #empty>
             <p>Arraste e solte arquivos para Upload.</p>
           </template>
@@ -25,13 +26,15 @@ import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 import axios from "axios";
+import Toast from 'primevue/toast';
 
 export default {
   name: 'Menu',
   components: {
       Dialog,
       Button,
-      FileUpload
+      FileUpload,
+      Toast
   },
   data() {
 		return {
@@ -43,10 +46,19 @@ export default {
       this.displayModal = true;
     },
     upload(event){
-      //axios.post("http://localhost:8081/upload/cliente", event.files[0])
-    },
-    onUpload() {
-      this.$toast.add({severity: 'info', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
+      console.log(event.files[0])
+      let formData = new FormData()
+      formData.append('file', event.files[0])
+      axios.post("http://localhost:8081/upload/cliente", formData, {
+        headers: {
+           "Content-Type": "multipart/form-data",
+         }
+      }).then(() => {
+        this.$toast.add({severity: 'success', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
+      })
+      .catch(() => {
+        this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
+      })
     }
   }
 }
