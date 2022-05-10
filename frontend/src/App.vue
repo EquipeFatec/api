@@ -4,16 +4,16 @@
     Hey Alexia
   </div>
 
-  <div class="row" style="margin-left:18%; margin-top:3%">
+  <div class="row" style="margin-left:10%; margin-top:3%">
     <table style="border: none;" cellspacing="15">
       <tr>
-        <td>
-          <Card style="width: 25rem; height:25rem; margin-bottom: 6em; background-color: #F2E0F7">
+        <td rowspan="2">
+          <Card style="width: 25rem; height:50rem; margin-bottom: 6em; background-color: #F2E0F7">
             <template #title> Produtos Mais vendidos </template>
             <template #content>
               <div>
                   <div class="card">
-                        <DataTable :value="itens" class="p-datatable-sm" responsiveLayout="scroll">
+                        <DataTable :value="itens" responsiveLayout="scroll">
                             <Column field="0" header="Nome" :sortable="true"></Column>
                             <Column field="1" header="Quantidade" :sortable="true"></Column>
                             <Column field="2" header="Valor Total" :sortable="true"></Column>
@@ -24,12 +24,37 @@
           </Card>
         </td>
         <td>
-          <Card style="width: 25rem; height: 25rem; margin-bottom: 6em; background-color: #F2E0F7">
+          <Card style="width: 25rem; height:25rem; background-color: #F2E0F7;">
+            <template #title> Análise Mensal </template>
+            <template #content>
+              <br/>
+              <label class="customlabel">TOTAL R$</label>
+              <br/>
+              <label class="bigtitle">124.5201,87</label>
+              <hr/>
+              <label class="customlabel">TOTAL QTD.</label>
+              <br/>
+              <label class="bigtitle" style="color: #266fc5">50</label>
+            </template>
+          </Card>
+        </td>
+        <td>
+          <Card style="width: 25rem; height: 25rem; background-color: #F2E0F7">
             <template #title> Clientes </template>
             <template #content>
               <div class="container">
                 <Chart type="pie" :data="chartData" :options="lightOptions" />
               </div>
+            </template>
+          </Card>
+        </td>
+      </tr>
+      <tr>
+        <td colspan=5>
+          <Card style="width: 52rem; height: 24rem; margin-bottom: 6em; background-color: #F2E0F7">
+            <template #title> Grafico </template>
+            <template #content>
+              
             </template>
           </Card>
         </td>
@@ -127,4 +152,15 @@ export default {
   padding-bottom: 3px;
   border-bottom: 1px solid #266fc5;
 }
+
+.customlabel {
+  font-size: 12pt;
+  color: black;
+}
+
+.bigtitle {
+  font-size: 40pt;
+  color: #965096;
+}
+
 </style>
