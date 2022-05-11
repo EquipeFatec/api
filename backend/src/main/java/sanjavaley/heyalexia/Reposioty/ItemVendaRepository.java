@@ -16,6 +16,10 @@ public interface ItemVendaRepository extends JpaRepository<ItemVenda, Long>{
 			+ " group by p.prod_nome order by soma desc,valor_total desc FETCH FIRST 5 ROWS ONLY")
 	ArrayList<String[]> topSell();
 
-	@Query(nativeQuery = true, value = "SELECT SUM(ITV_QUANTIDADE) from item_venda")
+	@Query(nativeQuery = true, value = "SELECT SUM(it.ITV_VALOR) from item_venda it join venda v on v.venda_id = it.venda_id " +
+			" where EXTRACT (MONTH from venda_data) = ?1")
+	String valorTotal(Integer mes);
+
+	@Query(nativeQuery = true, value = "SELECT SUM(it.ITV_VALOR) from item_venda it join venda v on v.venda_id = it.venda_id ")
 	String valorTotal();
 }

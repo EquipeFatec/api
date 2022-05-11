@@ -38,5 +38,8 @@ public class ClienteServiceImp {
 		repository.deleteAll();
 	}
 	
-		
+	public List<Cliente> orderByIdade(){
+		List<Cliente> list = repository.orderByIdade();
+		return list;
+	}
 }

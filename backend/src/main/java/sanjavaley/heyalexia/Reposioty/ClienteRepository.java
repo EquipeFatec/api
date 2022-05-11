@@ -19,5 +19,8 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 		
 		@Query(nativeQuery = true, value = "select count(cliente_id) as contador from cliente group by cliente_genero")
 		List<Integer> contadorGenero();
+
+		@Query("select c from Cliente c")
+		List<Cliente> orderByIdade();
 	
 }

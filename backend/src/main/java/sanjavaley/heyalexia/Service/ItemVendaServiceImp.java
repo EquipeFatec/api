@@ -23,8 +23,13 @@ public class ItemVendaServiceImp {
 		return list;
 	}
 	
-	public String valorTotal(){
-		String valor = repos.valorTotal();
+	public String valorTotal(Integer mes){
+		String valor;
+		if(mes == null){
+			valor = repos.valorTotal();
+		}else{
+			valor = repos.valorTotal(mes);
+		}
 		return valor;
 	}
 	
