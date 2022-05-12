@@ -1,6 +1,7 @@
 package sanjavaley.heyalexia.Controller;
 
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,8 @@ throws Exception{
 			clientes.setSobrenome(record.getString("Sobrenome"));			
 			clientes.setClienteEmail(record.getString("ClienteEmail"));
 			clientes.setClienteTelefone(record.getString("ClienteTelefone"));
-			clientes.setClienteGenero(record.getString("Genero"));					
+			clientes.setClienteGenero(record.getString("Genero"));
+			clientes.setClienteNascimento(record.getString("CLIENTE_NASCIMENTO"));
 			clientes.setEndereco(end);
 			cliente.add(clientes);				
 		});
