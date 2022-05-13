@@ -22,5 +22,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
 		@Query("select c from Cliente c")
 		List<Cliente> orderByIdade();
+
+
 	
 }

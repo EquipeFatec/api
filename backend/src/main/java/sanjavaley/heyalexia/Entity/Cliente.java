@@ -14,6 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -51,20 +52,21 @@ public class Cliente {
 	 private String ClienteGenero;
 
 	@Column(name="CLIENTE_NASCIMENTO")
-	private Date ClienteNascimento;
+	private String ClienteNascimento;
 	 
 	 //@JsonIgnore
 	 @ManyToOne//fetch = FetchType.LAZY)
 	 @JoinColumn(name = "ENDERECO_ID")
 	 private Endereco endereco;
 
-	 public Long getIdade() {
-		 Date date = Calendar.getInstance().getTime();
-		 DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		 long diff = (date.getTime() - getClienteNascimento().getTime());
-		 long diffyears = TimeUnit.MILLISECONDS.toDays(diff) / 365;
-		 return diffyears;
+	 public Long getIdade() throws ParseException {
+		 Date date = new Date();
+		 DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		 String data = ClienteNascimento;
+		 Date dataFormatada = format.parse(data);
+		 long diff = (date.getTime() - dataFormatada.getTime());
+		 return TimeUnit.MILLISECONDS.toDays(diff) / 365;
 	 }
-	 
-	 
+
+
 }
