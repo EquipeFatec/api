@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import sanjavaley.heyalexia.Entity.Produto;
 import sanjavaley.heyalexia.Reposioty.ProdutoRepository;
 
-//TODO AQUI É A LOGICA
 @Service
 public class ProdutoServiceImp  {
 
