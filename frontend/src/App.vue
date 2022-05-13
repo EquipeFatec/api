@@ -8,7 +8,7 @@
     <table style="border: none;" cellspacing="15">
       <tr>
         <td rowspan="2">
-          <Card style="width: 25rem; height:27rem; margin-bottom: 6em; margin-top: 0%;  background-color: #F2E0F7">
+          <Card style="width: 25rem; height:30rem; margin-bottom: 6em; margin-top: 0%;  background-color: #F2E0F7">
             <template #title> Produtos mais vendidos </template>
             <template #content>
               <div>
@@ -35,7 +35,7 @@
             </Card>
         </td>
         <td>
-          <Card style="width: 25rem; height: 25rem; background-color: #F2E0F7">
+          <Card style="width: 25rem; height: 28rem; background-color: #F2E0F7">
             <template #title> Produtos mais vendidos (%) </template>
             <template #content>
               <div class="container">
@@ -45,10 +45,10 @@
           </Card>
         </td>
         <td>
-          <Card style="width: 25rem; height:25rem; background-color: #F2E0F7;">
-            <template #title> Análise mensal </template>
+          <Card style="width: 25rem; height:28rem; background-color: #F2E0F7;" class="box">
+            <template #title> Análise Mensal </template>
             <template #content>
-              <br/>
+              <br/><br/><br/>
               <label class="customlabel">TOTAL R$</label>
               <br/>
               <label class="bigtitle">124.5201,87</label>
@@ -115,9 +115,12 @@ export default {
   mounted() {
     axios.get("http://localhost:8081/item-venda/top").then((response) => {
       this.itens = response.data;
-    });
-    axios.get("http://localhost:8081/cliente/genero").then((response) => {
-      this.chartData.datasets[0].data = response.data
+      this.chartData.labels = []
+      this.chartData.datasets[0].data = []
+      response.data.map(produto => {
+        this.chartData.labels.push(produto[0])
+        this.chartData.datasets[0].data.push(produto[1])
+      })
     })
   },
   methods: {
@@ -132,12 +135,11 @@ export default {
       produtoExibido: {},
       clientesSexo: [],
       chartData: {
-        labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"], //busca dos produtos mais vendidos
+        labels: [], //busca dos produtos mais vendidos
         datasets: [
           {
             data: [],
-            backgroundColor: ["#AF72B0", "#2D8BBA"],
-            hoverBackgroundColor: ["#B469B4", "#477EBF"],
+            backgroundColor: ["#32366F", "#2F5F98", "#2D8BBA", "#41B8D5", "#6CE5E8"]
           },
         ],
       },
@@ -521,14 +523,20 @@ export default {
 .customlabel {
   font-size: 12pt;
   color: black;
-  text-align-last: center;
-  position: absolute;
-
 }
 
 .bigtitle {
   font-size: 40pt;
   color: #965096;
+  font-weight: bold;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
 }
 
 </style>
