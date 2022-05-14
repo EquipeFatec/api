@@ -110,4 +110,4 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver uma aplicação
 # :open_file_folder: Entregas
 
 - <a href="https://github.com/EquipeFatec/api/blob/main/documents/sprint1.md/">Sprint 1</a>
-- Sprint 2 - Em desenvolvimento
+- <a href="https://github.com/EquipeFatec/api/blob/main/documents/sprint2.md/">Sprint 2 - Em Desenvolvimento </a>
