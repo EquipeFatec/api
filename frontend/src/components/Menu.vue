@@ -1,15 +1,10 @@
 <template>
 <Toast />
-  <div class="row">
-      <div>
           <div class="menu">
             <Button class="menu-button" @click="openModal">
               <img src="../assets/upload.png" class="menu-image"/>
             </Button>
           </div>
-      </div>
-  </div>
-
   <Dialog header="Upload de Arquivos" v-model:visible="displayModal" :style="{width: '50vw'}" :modal="true">
       <FileUpload name="csv" :customUpload="true" @uploader="upload" :multiple="false" accept=".txt" :maxFileSize="1000000">
           <template #empty>
@@ -66,23 +61,23 @@ export default {
 
 <style>
 .menu-container {
-  z-index: 1000;
-  position: fixed;
-  left: 277px;
-  width: 277px;
+  /* z-index: 1000; */
+  /* position: fixed; */
+  /* left: 277px; */
+  /* max-width: 277px; */
   height: 100%;
-  margin-left: -277px;
-  overflow-y: auto;
+  /* margin-left: -277px; */
+  /* overflow-y: auto; */
   background: #000;
-  top: 0;
-  overflow: hidden;
+  /* top: 0;
+  overflow: hidden; */
   transition: all .5s ease;
 }
 
 .menu {
-  position: fixed;
-  width: 60px;
-  height: 100%;
+  /* width: 100%; */
+  /* max-width: 60px; */
+  /* height: 100%; */
   background: #9C27B0;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }

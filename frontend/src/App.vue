@@ -1,13 +1,15 @@
 <template>
-  <Menu></Menu>
-  <div style="text-align: center; font-size: 40pt; text-shadow: 1px 1px 3px black">
-    Hey Alexia
+<div style="width:100">
+  <div style="width:50%">
+    <Menu></Menu>
   </div>
-
-  <div class="row" style="margin-left:5%; margin-top:2%">
-    <table style="border: none;" cellspacing="15">
-      <tr>
-        <td rowspan="2">
+  <div style="width:50%">
+    <div style="text-align: center; font-size: 40pt; text-shadow: 1px 1px 3px black">
+      Hey Alexia
+    </div>
+  
+  <div class="row" style="margin-left:5%; margin-top:2%; display: flex;">
+  <div>
           <Card style="width: 25rem; height:30rem; margin-bottom: 6em; margin-top: 0%;  background-color: #F2E0F7">
             <template #title> Produtos mais vendidos </template>
             <template #content>
@@ -33,8 +35,6 @@
               </div>
             </template>
             </Card>
-        </td>
-        <td>
           <Card style="width: 25rem; height: 28rem; background-color: #F2E0F7">
             <template #title> Produtos mais vendidos (%) </template>
             <template #content>
@@ -43,9 +43,9 @@
               </div>
             </template>
           </Card>
-        </td>
-        <td>
-          <Card style="width: 25rem; height:28rem; background-color: #F2E0F7;" class="box">
+  </div>
+  <div>
+ <Card style="width: 25rem; height:28rem; background-color: #F2E0F7;" class="box">
             <template #title> Análise Mensal </template>
             <template #content>
               <br/><br/><br/>
@@ -58,12 +58,6 @@
               <label class="bigtitle" style="color: #266fc5">50</label>
             </template>
           </Card>
-        </td>
-      </tr>
-      <tr>
-         <!-- <td rowspan="2"> -->
-          <!-- </td> -->
-        <td colspan=5>
           <Card style="width: 52rem; height: 31rem; margin-bottom: 6em; background-color: #F2E0F7">
            <!-- <Card style="width: 32rem; height: 25rem; margin-bottom: 6em; margin-left: 5%; background-color: #F2E0F7"> -->
             <template #title> Total de vendas por ano </template>
@@ -84,11 +78,12 @@
               <!-- </div> -->
             </template>
           </Card>
-        </td>
-      </tr>
-    </table>
   </div>
 
+         
+  </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -537,6 +532,13 @@ export default {
   flex-direction: row;
   text-align: center;
   justify-content: center;
+}
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width:100%;
 }
 
 </style>
