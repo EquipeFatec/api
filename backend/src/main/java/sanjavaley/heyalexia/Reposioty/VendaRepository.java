@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import sanjavaley.heyalexia.Entity.Venda;
 
+import java.util.List;
+
 
 public interface VendaRepository extends JpaRepository<Venda, Long>{
 
@@ -16,7 +18,16 @@ public interface VendaRepository extends JpaRepository<Venda, Long>{
     String vendaTotal();
 
     @Query(nativeQuery = true, value = "select sum(itv.itv_valor) from venda v join item_venda itv on itv.venda_id = v.venda_id " +
-            " where (venda_data > ?1 and venda_data < ?2)")
+            " where (venda_data > TO_DATE(?1) and venda_data < TO_DATE(?2))")
     String valorTotalPorData(String _dataInicial, String _dataFinal);
 
+    @Query(nativeQuery = true, value = " select sum(itv.itv_valor) as \"VALOR\", " +
+            " extract(year from venda_data) as \"ANO\", " +
+            " extract(month from venda_data) as \"MES\" " +
+            " from venda v " +
+            " join item_venda itv on itv.venda_id = v.venda_id " +
+            " group by extract(year from venda_data), extract(month from venda_data) " +
+            " order by extract(year from venda_data), " +
+            " extract(month from venda_data)")
+    List<Object> valoresPorMesAno();
 }

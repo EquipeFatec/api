@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sanjavaley.heyalexia.Reposioty.VendaRepository;
 
+import java.util.List;
+
 
 @Service
 public class VendaServiceImp  {
@@ -26,5 +28,9 @@ public class VendaServiceImp  {
 	public String valorVendaPorData(String _dataInicial, String _dataFinal){
 		String total = repository.valorTotalPorData(_dataInicial,_dataFinal);
 		return total;
+	}
+
+	public List<Object> valoresPorMesAno(){
+		return repository.valoresPorMesAno();
 	}
 }

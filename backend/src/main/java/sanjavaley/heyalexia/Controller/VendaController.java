@@ -37,6 +37,11 @@ public class VendaController {
         }else{
             return total;
         }
+    }
 
+    @GetMapping(value = "/valor-mes-ano")
+    @ResponseBody
+    public List<Object> valoresPorMesAno(){
+        return vendaService.valoresPorMesAno();
     }
 }
