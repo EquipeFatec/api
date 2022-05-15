@@ -18,12 +18,20 @@ public class ItemVendaServiceImp {
 	private ItemVendaRepository repos;
 	
 	
-	public ArrayList<String[]> topSellOrderByQuantidade(){
-		ArrayList<String[]> list = repos.topSellOrderByQuantidade();
+	public ArrayList<String[]> topSell(){
+		ArrayList<String[]> list = repos.topSell();
 		return list;
 	}
 	
-	//TODO implementar os top sell do repository
+	public String valorTotal(Integer mes){
+		String valor;
+		if(mes == null){
+			valor = repos.valorTotal();
+		}else{
+			valor = repos.valorTotal(mes);
+		}
+		return valor;
+	}
 	
 
 }

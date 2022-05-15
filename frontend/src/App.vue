@@ -8,17 +8,17 @@
     <table style="border: none;" cellspacing="15">
       <tr>
         <td rowspan="2">
-          <Card style="width: 25rem; height:27rem; margin-bottom: 6em; margin-top: 0%;  background-color: #F2E0F7">
+          <Card style="width: 25rem; height:30rem; margin-bottom: 6em; margin-top: 0%;  background-color: #F2E0F7">
             <template #title> Produtos mais vendidos </template>
             <template #content>
               <div>
-                  <div class="card">
-                        <DataTable :value="itens" responsiveLayout="scroll">
-                            <Column field="0" header="Nome" :sortable="true"></Column>
-                            <Column field="1" header="Quantidade" :sortable="true"></Column>
-                            <Column field="2" header="Valor Total" :sortable="true"></Column>
-                       </DataTable>
-                  </div>
+                <div class="card">
+                  <DataTable :value="itens" responsiveLayout="scroll">
+                    <Column field="0" header="Nome" :sortable="true"></Column>
+                    <Column field="1" header="Quantidade" :sortable="true"></Column>
+                    <Column field="2" header="Valor Total" :sortable="true"></Column>
+                  </DataTable>
+                </div>
               </div>
             </template>
           </Card>
@@ -26,16 +26,16 @@
             <template #title> Clientes por idade </template>
             <template #content>
               <div>
-                  <div class="card">
-                    <Chart type="bar" :data="basicData1" :options="basicOptions1" />
+                <div class="card">
+                  <Chart type="bar" :data="basicData1" :options="basicOptions1" />
 
-                  </div>
+                </div>
               </div>
             </template>
-            </Card>
+          </Card>
         </td>
         <td>
-          <Card style="width: 25rem; height: 25rem; background-color: #F2E0F7">
+          <Card style="width: 25rem; height: 28rem; background-color: #F2E0F7">
             <template #title> Produtos mais vendidos (%) </template>
             <template #content>
               <div class="container">
@@ -45,43 +45,30 @@
           </Card>
         </td>
         <td>
-          <Card style="width: 25rem; height:25rem; background-color: #F2E0F7;">
-            <template #title> Análise mensal </template>
+          <Card style="width: 25rem; height:28rem; background-color: #F2E0F7;" class="box">
+            <template #title> Análise Mensal </template>
             <template #content>
-              <br/>
+              <br /><br /><br />
               <label class="customlabel">TOTAL R$</label>
-              <br/>
-              <label class="bigtitle">124.5201,87</label>
-              <hr/>
+              <br />
+              <label class="bigtitle">R$ {{ analiseValorTotal }}</label>
+              <hr />
               <label class="customlabel">TOTAL QTD.</label>
-              <br/>
-              <label class="bigtitle" style="color: #266fc5">50</label>
+              <br />
+              <label class="bigtitle" style="color: #266fc5">{{ analiseQuantidadeTotal }}</label>
             </template>
           </Card>
         </td>
       </tr>
       <tr>
-         <!-- <td rowspan="2"> -->
-          <!-- </td> -->
         <td colspan=5>
           <Card style="width: 52rem; height: 31rem; margin-bottom: 6em; background-color: #F2E0F7">
-           <!-- <Card style="width: 32rem; height: 25rem; margin-bottom: 6em; margin-left: 5%; background-color: #F2E0F7"> -->
             <template #title> Total de vendas por ano </template>
             <template #content>
-              <!-- <div class="container">
-                <div class="card">
-                  <h5>Basic</h5>
-                    <Chart type="line" :data="basicData" :options="basicOptions" />
-              </div> -->
-              <!-- <div class="card">
-                <h5>Multi Axis</h5>
-                <Chart type="line" :data="multiAxisData" :options="multiAxisOptions" />
-              </div> -->
 
-               <div style="height: 3rem;" class="card">
-                  <Chart type="line" :data="lineStylesData" :options="basicOptions" />
+              <div style="height: 3rem;" class="card">
+                <Chart type="line" :data="lineStylesData" :options="basicOptions" />
               </div>
-              <!-- </div> -->
             </template>
           </Card>
         </td>
@@ -115,15 +102,69 @@ export default {
   mounted() {
     axios.get("http://localhost:8081/item-venda/top").then((response) => {
       this.itens = response.data;
-    });
-    axios.get("http://localhost:8081/cliente/genero").then((response) => {
-      this.chartData.datasets[0].data = response.data
+      this.chartData.labels = []
+      this.chartData.datasets[0].data = []
+      response.data.map(produto => {
+        this.chartData.labels.push(produto[0])
+        this.chartData.datasets[0].data.push(produto[1])
+      })
+    })
+    axios.get("http://localhost:8081/venda/total").then((response) => {
+      this.analiseValorTotal = response.data[0]
+      this.analiseQuantidadeTotal = response.data[1]
+    })
+    axios.get("http://localhost:8081/venda/valor-mes-ano").then((response) => {
+      this.lineStylesData.datasets.labels = []
+      this.lineStylesData.datasets = [{}]
+      let groupAno = []
+      let indicesMes = []
+      let i = 0
+      response.data.map(venda => {
+        if(!indicesMes.includes(venda[2])){
+          this.lineStylesData.labels.push(this.nomeMes(venda[2]))
+          indicesMes.push(venda[2])
+        }
+        if(!groupAno.includes(venda[1])){
+          this.lineStylesData.datasets.push({
+            label: venda[1],
+            fill: false,
+            data: [],
+            tension: .4,
+            borderColor: this.gerarCor(i)})
+          groupAno.push(venda[1])
+          i++
+        }
+        this.lineStylesData.datasets[i].data.push(venda[0])
+      })
+      this.lineStylesData.datasets.splice(0, 1)
     })
   },
   methods: {
-    exibir(produto) {
-      this.produtoExibido = produto;
+    nomeMes: function(mes){
+      switch(mes) {
+        case 1: return 'Janeiro'
+        case 2: return 'Fevereiro'
+        case 3: return 'Março'
+        case 4: return 'Abril'
+        case 5: return 'Maio'
+        case 6: return 'Junho'
+        case 7: return 'Julho'
+        case 8: return 'Agosto'
+        case 9: return 'Setembro'
+        case 10: return 'Outubro'
+        case 11: return 'Novembro'
+        case 12: return 'Dezembro'
+        default: return ''
+      }
     },
+    gerarCor: function(i){
+      switch(i){
+        case 1: return "#660066"
+        case 2: return "#0052cc"
+        case 3: return "#e6005c"
+        default: return '#000'
+      }
+    }
   },
   data() {
     return {
@@ -131,13 +172,16 @@ export default {
       itens: [],
       produtoExibido: {},
       clientesSexo: [],
+      analiseValorTotal: 0,
+      analiseQuantidadeTotal: 0,
+
+      //Grafico Pizza
       chartData: {
-        labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"], //busca dos produtos mais vendidos
+        labels: [], //busca dos produtos mais vendidos
         datasets: [
           {
             data: [],
-            backgroundColor: ["#AF72B0", "#2D8BBA"],
-            hoverBackgroundColor: ["#B469B4", "#477EBF"],
+            backgroundColor: ["#32366F", "#2F5F98", "#2D8BBA", "#41B8D5", "#6CE5E8"]
           },
         ],
       },
@@ -159,336 +203,279 @@ export default {
           },
         },
       },
-      basicData: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [
-           {
-             label: 'First Dataset',
-              data: [65, 59, 80, 81, 56, 55, 40],
-              fill: false,
-              borderColor: '#800080',
-              tension: .4
-           },
-           {
-             label: 'Second Dataset',
-             data: [28, 48, 40, 19, 86, 27, 90],
-             fill: false,
-             borderColor:  '#0099ff',
-             tension: .4
-           }
-          ]
-        }, 
-        multiAxisData: {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [{
-            label: 'Dataset 1',
-                    fill: false,
-                     borderColor: '#000000',
-                    yAxisID: 'y',
-                     tension: .4,
-                     data: [65, 59, 80, 81, 56, 55, 10]
-                }, {
-                    label: 'Dataset 2',
-                    fill: false,
-                    borderColor: '#000000',
-                     yAxisID: 'y1',
-                    tension: .4,
-                     data: [28, 48, 40, 19, 86, 27, 90]
-                 }]
-             }, 
-            lineStylesData: {
-                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                 datasets: [
-                    {
-                         label: 'First Dataset',
-                         data: [65, 59, 80, 81, 56, 55, 40],
-                         fill: false,
-                         tension: .4,
-                         borderColor: '#660066' //roxo
-                     },
-                     {
-                         label: 'Second Dataset',
-                         data: [28, 48, 40, 19, 86, 27, 90],
-                         fill: false,
-                         borderDash: [5, 5],
-                         tension: .4,
-                         borderColor:  '#0052cc'
-                     },
-                     {
-                         label: 'Third Dataset',
-                         data: [12, 51, 62, 33, 21, 62, 45],
-                         fill: true,
-                         borderColor: '#e6005c', //rosa
-                         tension: .4,
-                         backgroundColor: 'rgba(255,167,38,0.2)'
-                     }
-                 ]
-             }, 
-             basicOptions: {
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#000000'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: '#000000'
-                        },
-                        grid: {
-                            color: '#ffffff'
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: '#000000'
-                        },
-                        grid: {
-                            color:  '#55aef6'
-                        }
-                    }
-                }
-            },
-              multiAxisOptions:{
-                 stacked: false,
-                 plugins: {
-                     legend: {
-                         labels: {
-                             color: '#495057'
-                         }
-                     }
-                 },
-                 scales: {
-                     x: {
-                         ticks: {
-                             color: '#495057'
-                         },
-                         grid: {
-                             color: '#ebedef'
-                         }
-                     },
-                     y: {
-                         type: 'linear',
-                         display: true,
-                         position: 'left',
-                         ticks: {
-                             color: '#495057'
-                         },
-                         grid: {
-                             color: '#ebedef'
-                         }
-                     },
-                     y1: {
-                         type: 'linear',
-                         display: true,
-                         position: 'right',
-                         ticks: {
-                             color: '#000000'
-                         },
-                        grid: {
-                            drawOnChartArea: false,
-                             color: '#000000'
-                         }
-                     }
-                 }
-              },
-                basicData1: {
-                labels: ['Aparecida', 'Caçapava', 'Cruzeiro', 'Guaratinguetá', 'Jacareí', 'SJCampos', 'Taubaté'],
-                datasets: [
-                    {
-                        label: 'Feminino',
-                        backgroundColor: '#660066',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                    {
-                        label: 'Masculino',
-                        backgroundColor: '#e6005c', 
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
-                        label: 'Outros',
-                        backgroundColor: '#3396ff',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    }
-                ]
-            },
-            multiAxisData1: {
-                labels: ['Aparecida', 'Caçapava', 'Cruzeiro', 'Guaratinguetá', 'Jacareí', 'SJCampos', 'Taubaté'],
-                datasets: [{
-                    label: 'Dataset 1',
-                    backgroundColor: ['#EC407A','#AB47BC','#42A5F5','#7E57C2','#66BB6A','#FFCA28','#26A69A'],
-                    yAxisID: 'y-axis-1',
-                    data: [65, 59, 80, 81, 56, 55, 10]
-                }, {
-                    label: 'Dataset 2',
-                    backgroundColor: '#78909C',
-                    yAxisID: 'y-axis-2',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }]
-            },
-            stackedData1: {
-                labels: ['Aparecida', 'Caçapava', 'Cruzeiro', 'Guaratinguetá', 'Jacareí', 'SJCampos', 'Taubaté'],
-                datasets: [{
-                    type: 'bar',
-                    label: 'Dataset 1',
-                    backgroundColor: '#42A5F5',
-                    data: [50,25,12,48,90,76,42]
-                }, {
-                    type: 'bar',
-                    label: 'Dataset 2',
-                    backgroundColor: '#66BB6A',
-                    data: [21,84,24,75,37,65,34]
-                }, {
-                    type: 'bar',
-                    label: 'Dataset 3',
-                    backgroundColor: '#FFA726',
-                    data: [41,52,24,74,23,21,32]
-                }]
-            },
-            basicOptions1: {
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#000000'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: '#000000'
-                        },
-                        grid: {
-                            color: '#ffffff'
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: '#000000'
-                        },
-                        grid: {
-                            color: '#55aef6'
-                        }
-                    }
-                }
-            },
-            horizontalOptions1: {
-                indexAxis: 'y',
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#495057'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: '#495057'
-                        },
-                        grid: {
-                            color: '#ebedef'
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: '#495057'
-                        },
-                        grid: {
-                            color: '#ebedef'
-                        }
-                    }
-                }
-            },
-            multiAxisOptions1: {
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#495057'//'#495057'
-                        }
-                    },
-                    tooltips: {
-                        mode: 'index',
-                        intersect: true
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: '#495057'
-                        },
-                        grid: {
-                            color: '#ebedef'
-                        }
-                    },
-                    y: {
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        ticks: {
-                            min: 0,
-                            max: 100,
-                            color: '#495057'
-                        },
-                        grid: {
-                            color: '#ebedef'
-                        }
-                    },
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        grid: {
-                            drawOnChartArea: false,
-                            color: '#000000'
-                        },
-                        ticks: {
-                            min: 0,
-                            max: 100,
-                            color: '#000000'
-                        }
-                    }
-                }
-            },
-            stackedOptions1: {
-                plugins: {
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false
-                    },
-                    legend: {
-                        labels: {
-                            color: '#495057'
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        stacked: true,
-                        ticks: {
-                            color: '#495057'
-                        },
-                        grid: {
-                            color: '#ebedef'
-                        }
-                    },
-                    y: {
-                        stacked: true,
-                        ticks: {
-                            color: '#495057'
-                        },
-                        grid: {
-                            color: '#ebedef'
-                        }
-                    }
-                }
+
+      //Grafico Linhas
+      lineStylesData: {
+        labels: [],
+        datasets: [{}]
+      },
+      basicOptions: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#000000'
             }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#000000'
+            },
+            grid: {
+              color: '#ffffff'
+            }
+          },
+          y: {
+            ticks: {
+              color: '#000000'
+            },
+            grid: {
+              color: '#55aef6'
+            }
+          }
         }
+      },
+      multiAxisOptions: {
+        stacked: false,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#495057'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            ticks: {
+              color: '#000000'
+            },
+            grid: {
+              drawOnChartArea: false,
+              color: '#000000'
+            }
+          }
+        }
+      },
+
+      //Grafico Barras
+      basicData1: {
+        labels: ['Aparecida', 'Caçapava', 'Cruzeiro', 'Guaratinguetá', 'Jacareí', 'SJCampos', 'Taubaté'],
+        datasets: [
+          {
+            label: 'Feminino',
+            backgroundColor: '#660066',
+            data: [65, 59, 80, 81, 56, 55, 40]
+          },
+          {
+            label: 'Masculino',
+            backgroundColor: '#e6005c',
+            data: [28, 48, 40, 19, 86, 27, 90]
+          },
+          {
+            label: 'Outros',
+            backgroundColor: '#3396ff',
+            data: [28, 48, 40, 19, 86, 27, 90]
+          }
+        ]
+      },
+      multiAxisData1: {
+        labels: ['Aparecida', 'Caçapava', 'Cruzeiro', 'Guaratinguetá', 'Jacareí', 'SJCampos', 'Taubaté'],
+        datasets: [{
+          label: 'Dataset 1',
+          backgroundColor: ['#EC407A', '#AB47BC', '#42A5F5', '#7E57C2', '#66BB6A', '#FFCA28', '#26A69A'],
+          yAxisID: 'y-axis-1',
+          data: [65, 59, 80, 81, 56, 55, 10]
+        }, {
+          label: 'Dataset 2',
+          backgroundColor: '#78909C',
+          yAxisID: 'y-axis-2',
+          data: [28, 48, 40, 19, 86, 27, 90]
+        }]
+      },
+      stackedData1: {
+        labels: ['Aparecida', 'Caçapava', 'Cruzeiro', 'Guaratinguetá', 'Jacareí', 'SJCampos', 'Taubaté'],
+        datasets: [{
+          type: 'bar',
+          label: 'Dataset 1',
+          backgroundColor: '#42A5F5',
+          data: [50, 25, 12, 48, 90, 76, 42]
+        }, {
+          type: 'bar',
+          label: 'Dataset 2',
+          backgroundColor: '#66BB6A',
+          data: [21, 84, 24, 75, 37, 65, 34]
+        }, {
+          type: 'bar',
+          label: 'Dataset 3',
+          backgroundColor: '#FFA726',
+          data: [41, 52, 24, 74, 23, 21, 32]
+        }]
+      },
+      basicOptions1: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#000000'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#000000'
+            },
+            grid: {
+              color: '#ffffff'
+            }
+          },
+          y: {
+            ticks: {
+              color: '#000000'
+            },
+            grid: {
+              color: '#55aef6'
+            }
+          }
+        }
+      },
+      horizontalOptions1: {
+        indexAxis: 'y',
+        plugins: {
+          legend: {
+            labels: {
+              color: '#495057'
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          },
+          y: {
+            ticks: {
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          }
+        }
+      },
+      multiAxisOptions1: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#495057'
+            }
+          },
+          tooltips: {
+            mode: 'index',
+            intersect: true
+          }
+        },
+        scales: {
+          x: {
+            ticks: {
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+              min: 0,
+              max: 100,
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            grid: {
+              drawOnChartArea: false,
+              color: '#000000'
+            },
+            ticks: {
+              min: 0,
+              max: 100,
+              color: '#000000'
+            }
+          }
+        }
+      },
+      stackedOptions1: {
+        plugins: {
+          tooltips: {
+            mode: 'index',
+            intersect: false
+          },
+          legend: {
+            labels: {
+              color: '#495057'
+            }
+          }
+        },
+        scales: {
+          x: {
+            stacked: true,
+            ticks: {
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          },
+          y: {
+            stacked: true,
+            ticks: {
+              color: '#495057'
+            },
+            grid: {
+              color: '#ebedef'
+            }
+          }
+        }
+      }
     }
-  };
-  
+  }
+};
+
 </script>
 
 <style>
@@ -521,14 +508,19 @@ export default {
 .customlabel {
   font-size: 12pt;
   color: black;
-  text-align-last: center;
-  position: absolute;
-
 }
 
 .bigtitle {
   font-size: 40pt;
   color: #965096;
+  font-weight: bold;
 }
 
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+}
 </style>

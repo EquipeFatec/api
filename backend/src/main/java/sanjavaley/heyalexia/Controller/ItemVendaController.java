@@ -26,7 +26,7 @@ public class ItemVendaController {
 	@GetMapping(value = "/top")
 	public ArrayList<String[]> topSellOrderByQuantidade(){		
 		ArrayList<String[]> lista = new ArrayList<>();
-		lista.addAll(service.topSellOrderByQuantidade());		
+		lista.addAll(service.topSell());
 		return lista;			
 	}
 
