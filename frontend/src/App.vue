@@ -62,7 +62,7 @@
       </tr>
       <tr>
         <td colspan=5>
-          <Card style="width: 52rem; height: 31rem; margin-bottom: 6em; background-color: #F2E0F7">
+          <Card style="width: 52rem; height: 31rem; margin-bottom: 6em; background-color: #F2E0F7; text-align: center;">
             <template #title> Total de vendas por ano </template>
             <template #content>
 
