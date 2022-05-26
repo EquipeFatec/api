@@ -6,6 +6,9 @@
             <Button class="menu-button" @click="openModal">
               <img src="../assets/upload.png" class="menu-image"/>
             </Button>
+            <Button class="menu-button" @click="download">
+              <img src="../assets/download.png" class="menu-image"/>
+            </Button>
           </div>
       </div>
   </div>
@@ -59,6 +62,10 @@ export default {
       .catch(() => {
         this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
       })
+    },
+    download(){
+      //ToDo: Inserir integração com Backend
+      console.log('download')
     }
   }
 }
