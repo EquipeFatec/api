@@ -29,7 +29,7 @@
                 <div class="card" style="height:7rem" >
                   <SelectButton v-model="value1" :options="options" :change="selectChange()" />
                     <p></p>
-                  <Chart type="bar" :data="basicData1" :options="basicOptions1" />
+                  <Chart type="bar" :data="dataBarChart" :options="optionsBarChart"/>
                   </div>
           
                 </div>
@@ -170,12 +170,13 @@ export default {
       }
     },
     selectChange: function(){
-      console.log(this.value1);
       if(this.value1 == "Cidade"){
-        return this.basicData1;
+        this.dataBarChart = this.basicData1;
+        this.optionsBarChart = this.basicOptions1;
       }
       else{
-        return this.basicData2;
+        this.dataBarChart = this.basicData2;
+        this.optionsBarChart = this.basicOptions2;
       }
     }
   },
@@ -187,6 +188,8 @@ export default {
       clientesSexo: [],
       analiseValorTotal: 0,
       analiseQuantidadeTotal: 0,
+      dataBarChart: {},
+      optionsBarChart: {},
       //Select
             value1: 'Idade',
             options: ['Idade', 'Cidade'],
@@ -486,6 +489,7 @@ export default {
           }
         }
       },
+
       //Grafico Barras Idade
       basicData2: {
         labels: ['18| - 24', '24| - 30', '30| - 36', '36| - 42', '42| - 48', '48| - 54', '54| - 60', '60| - 100'],
