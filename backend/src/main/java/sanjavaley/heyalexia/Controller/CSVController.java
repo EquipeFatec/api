@@ -59,7 +59,7 @@ throws Exception{
 			clientes.setClienteEmail(record.getString("ClienteEmail"));
 			clientes.setClienteTelefone(record.getString("ClienteTelefone"));
 			clientes.setClienteGenero(record.getString("Genero"));
-			clientes.setClienteNascimento(record.getString(("Cliente_Nascimento")));
+			clientes.setClienteNascimento(record.getString("Cliente_Nascimento"));
 			clientes.setEndereco(end);
 
 

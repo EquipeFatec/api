@@ -20,6 +20,7 @@ public class ItemVendaServiceImp {
 	
 	public ArrayList<String[]> topSell(){
 		ArrayList<String[]> list = repos.topSell();
+
 		return list;
 	}
 	
@@ -32,6 +33,4 @@ public class ItemVendaServiceImp {
 		}
 		return valor;
 	}
-	
-
 }
