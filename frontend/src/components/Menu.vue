@@ -1,14 +1,14 @@
 <template>
-<Toast />
-  <div class="row">
-      <div>
-          <div class="menu">
-            <Button class="menu-button" @click="openModal">
-              <img src="../assets/upload.png" class="menu-image"/>
-            </Button>
-          </div>
-      </div>
-  </div>
+  <Toast />
+    <div class="row">
+        <div>
+            <div class="menu">
+              <Button class="menu-button" @click="openModal">
+                <img src="../assets/upload.png" class="menu-image"/>
+              </Button>
+            </div>
+        </div>
+    </div>
 
   <Dialog header="Upload de Arquivos" v-model:visible="displayModal" :style="{width: '50vw'}" :modal="true">
       <FileUpload name="csv" :customUpload="true" @uploader="upload" :multiple="false" accept=".txt" :maxFileSize="1000000">
