@@ -66,7 +66,7 @@
                                         </div>
                                         <small v-if="(v$.password.$invalid && submitted) || v$.password.$pending.$response" class="p-error">{{v$.password.required.$message.replace('Value', 'Password')}}</small>
                                     </div>
-                                    <router-link to="/about">
+                                    <router-link to="/dashboard">
                                        <Button type="submit" label="Cadastrar" class="mt-2" />
                                      </router-link>
                                     
@@ -118,7 +118,7 @@
                                         </div>
                                         <small v-if="(v$.password.$invalid && submitted) || v$.password.$pending.$response" class="p-error">{{v$.password.required.$message.replace('Value', 'Password')}}</small>
                                     </div>
-                                     <router-link to="/about">
+                                     <router-link to="/dashboard">
                                        <Button type="submit" label="Entrar" class="mt-2"/>
                                      </router-link>
                                     
@@ -149,7 +149,7 @@ import { useVuelidate } from "@vuelidate/core";
 // import CountryService from './service/CountryService';
 
 export default{
-        name: "About",
+        name: "Dashboard",
         components:{
         Splitter,
         SplitterPanel,

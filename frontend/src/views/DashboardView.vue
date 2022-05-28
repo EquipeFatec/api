@@ -29,7 +29,7 @@
                 <div class="card" style="height:7rem" >
                   <SelectButton v-model="value1" :options="options" :change="selectChange()" />
                     <p></p>
-                  <Chart type="bar" :data="basicData1" :options="basicOptions1" />
+                  <Chart type="bar" :data="dataBarChart" :options="optionsBarChart"/>
                   </div>
           
                 </div>
@@ -83,7 +83,6 @@
 <script>
 // import Menu from "./components/Menu.vue";
 import Menu from "@/components/Menu.vue";
-import AboutViewVue from "./AboutView.vue";
 import Card from "primevue/card";
 import axios from "axios";
 import Button from "primevue/button";
@@ -98,7 +97,6 @@ export default {
   name: "App",
   components: {
     Menu,
-    AboutViewVue,
     Card,
     Button,
     Chart,
@@ -173,12 +171,13 @@ export default {
       }
     },
     selectChange: function(){
-      console.log(this.value1);
       if(this.value1 == "Cidade"){
-        return this.basicData1;
+        this.dataBarChart = this.basicData1;
+        this.optionsBarChart = this.basicOptions1;
       }
       else{
-        return this.basicData2;
+        this.dataBarChart = this.basicData2;
+        this.optionsBarChart = this.basicOptions2;
       }
     }
   },

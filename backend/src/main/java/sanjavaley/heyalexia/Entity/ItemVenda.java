@@ -41,6 +41,12 @@ public class ItemVenda {
 	@ManyToOne
 	@JoinColumn(name = "VENDA_ID")
 	private Venda venda;
+
+	private Long porcentagemVenda(){
+		long soma =+ quantidade;
+		long p = (quantidade / soma) * 100;
+		return p;
+	}
 	
 
 	
