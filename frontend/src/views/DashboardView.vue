@@ -1,10 +1,10 @@
 <template>
   <Menu></Menu>
-  <div style="text-align: center; font-size: 40pt; text-shadow: 1px 1px 3px black">
-    Hey Alexia
+  <div style="margin-left:115%; width:350px">
+      <div style="font-size: 40pt; text-shadow: 1px 1px 3px black;"> Hey Alexia </div>
   </div>
-   
-  <div class="row" style="margin-left:5%; margin-top:2%">
+
+  <div class="row" style="margin-left:15%; margin-top:2%">
     <table style="border: none;" cellspacing="15">
       <tr>
         <td rowspan="2">
@@ -689,8 +689,6 @@ export default {
   font-family: "Times New Roman", Times, serif;
   text-align: center;
   font-size: 20pt;
-  display: flex;
-  flex-flow: row wrap;
   justify-content: center;
 }
 
@@ -731,4 +729,5 @@ export default {
   display: flex;
   text-align: center;
 }
+
 </style>
