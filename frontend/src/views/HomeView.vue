@@ -1,24 +1,11 @@
 <template>
+  <Toast />
     <div class="row" style="margin-left:5%; margin-top:15%">
         <div>
         <!-- <div class="card" style="margin-left:5%; margin-bottom:5%"> -->
             <Splitter style= "height:30rem; width:60rem; margin-left:40%; margin-bottom: 6em; margin-top: 0%; background-color: #F2E0F7; text-align:center">
                 <SplitterPanel class="flex align-items-center justify-content-center">
                       <div class="form-demo">
-                        <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
-                            <div class="flex align-items-center flex-column pt-6 px-3">
-                                <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
-                                <h5>...</h5>
-                                <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                                    Your account is registered under name <b>{{name}}</b> ; it'll be valid next 30 days without activation. Please check <b>{{email}}</b> for activation instructions.
-                                </p>
-                            </div>
-                            <template #footer>
-                                <div class="flex justify-content-center">
-                                    <Button label="OK" @click="toggleDialog" class="p-button-text" />
-                                </div>
-                            </template>
-                        </Dialog>
 
                         <div class="flex justify-content-center">
                             <div class="card">
@@ -66,9 +53,7 @@
                                         </div>
                                         <small v-if="(v$.password.$invalid && submitted) || v$.password.$pending.$response" class="p-error">{{v$.password.required.$message.replace('Value', 'Password')}}</small>
                                     </div>
-                                    <!-- <router-link to="/dashboard"> -->
-                                       <Button type="submit" label="Cadastrar" class="mt-2" />
-                                     <!-- </router-link> -->
+                                    <Button type="submit" label="Cadastrar" class="mt-2" />
                                     
                                 </form>
                             </div>
@@ -83,12 +68,12 @@
                                 <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
                                 <h5>Cadastrado com Sucesso!</h5>
                                 <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                                    Sua conta está registrada em nome <b>{{name}}</b> ; será válido nos próximos 30 dias sem ativação. por favor, verifique <b>{{email}}</b> para instruções de ativação.
+                                    <b>{{nome}}</b>, sua conta está registrada com sucesso. Por favor, verifique sua caixa de entrada <b>{{email}}</b>.
                                 </p>
                             </div>
                             <template #footer>
                                 <div class="flex justify-content-center">
-                                     <Button label="OK" @click="toggleDialog" class="p-button-text" />
+                                     <Button label="OK" class="p-button-text" />
                                 </div>
                             </template>
                         </Dialog>
@@ -142,6 +127,7 @@ import Password from 'primevue/password';
 import Divider from 'primevue/divider';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
+import Toast from 'primevue/toast';
 import { email, required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import axios from 'axios';
@@ -155,7 +141,8 @@ export default{
         Password,
         Divider,
         Dialog,
-        InputText
+        InputText,
+        Toast
     },
 setup: () => ({ v$: useVuelidate() }),
     data() {
@@ -181,12 +168,6 @@ setup: () => ({ v$: useVuelidate() }),
             }
         }
     },
-    created() {
-        //this.countryService = new CountryService();
-    },
-    mounted() {
-        //this.countryService.getCountries().then(data => this.countries = data);
-    },
     methods: {
         handleSubmit(isFormValid) {
             this.submitted = true;
@@ -194,36 +175,40 @@ setup: () => ({ v$: useVuelidate() }),
             let usuario = {
                 id: null,
                 nome: this.name,
-                //email: this.email,
-                senha: this.password,
-                autorizacoes: [{id: 1, nome:'ADMIN'}]
+                email: this.email,
+                senha: this.password
             }
 
-            console.log(usuario)
             if (!isFormValid) {
                 return;
             }
 
-            // axios.post("http://localhost:8081/security", usuario).then((response) => {
-            //     console.log(response)
-            // })
-
-            this.toggleDialog();
-        },
-        toggleDialog() {
-            this.showMessage = !this.showMessage;
-            if(!this.showMessage) {
+            axios.post("http://localhost:8081/cadastro/usuario", usuario).then(() => {
+                this.$toast.add({severity: 'success', summary: 'Cadastrado realizado com Sucesso', detail: 'Verifique seu e-mail', life: 3000});
+                this.enviarEmailConfirmacao(usuario)
                 this.resetForm();
-            }
+            })
+            .catch(() => {
+                this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Não foi possível realizar o cadastro. Tente novamente mais tarde.', life: 3000});
+            })
+
         },
         resetForm() {
             this.name = '';
             this.email = '';
             this.password = '';
-            this.date = null;
-            this.country = null;
-            this.accept = null;
             this.submitted = false;
+        },
+        enviarEmailConfirmacao(usuario) {
+            let emailToSend = {
+                email: usuario.email,
+                assunto: "Hey Alexia - Confirmação de Cadastro",
+                corpo: "Olá, " + usuario.nome + "! \n" +
+                "Estamos enviando este e-mail para confirmar que seu cadastro foi realizado com sucesso. " +
+                "Agora, basta acessar o sistema e fazer Login para utilizá-lo. \n\n" +
+                "Atenciosamente, Equipe Hey Alexia"
+            }
+            axios.post("http://localhost:8081/cadastro/email", emailToSend);
         }
     },
 };

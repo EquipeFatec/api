@@ -41,6 +41,11 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.univocity/univocity-parsers
 implementation group: 'com.univocity', name: 'univocity-parsers', version: '2.1.1'
 
+	// email
+	implementation 'org.springframework.boot:spring-boot-starter-mail:1.2.0.RELEASE'
+	implementation 'com.sun.mail:javax.mail:1.6.2'
+
+
 }
 
 tasks.named('test') {

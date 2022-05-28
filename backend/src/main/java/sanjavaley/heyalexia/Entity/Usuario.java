@@ -17,7 +17,7 @@ public class Usuario {
 
     @Id
     @Column(name = "usu_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "usu_nome")
@@ -37,5 +37,8 @@ public class Usuario {
     private Set<Autorizacao> autorizacoes;
 
     public Usuario(String nome, String senha, Set<Autorizacao> autorizacoes, String email) {
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
     }
 }

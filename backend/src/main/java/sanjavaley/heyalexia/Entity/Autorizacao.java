@@ -18,7 +18,7 @@ public class Autorizacao {
 
     @Id
     @Column(name = "aut_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "aut_nome")
