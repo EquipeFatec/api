@@ -8,7 +8,7 @@
                         <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                             <div class="flex align-items-center flex-column pt-6 px-3">
                                 <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
-                                <h5>Registration Successful!</h5>
+                                <h5>...</h5>
                                 <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                                     Your account is registered under name <b>{{name}}</b> ; it'll be valid next 30 days without activation. Please check <b>{{email}}</b> for activation instructions.
                                 </p>
@@ -27,7 +27,7 @@
                                     <div class="field">
                                         <div class="p-float-label">
                                             <InputText id="name" v-model="v$.name.$model" :class="{'p-invalid':v$.name.$invalid && submitted}" />
-                                            <label for="name" :class="{'p-error':v$.name.$invalid && submitted}">Name*</label>
+                                            <label for="name" :class="{'p-error':v$.name.$invalid && submitted}">Nome*</label>
                                         </div>
                                         <small v-if="(v$.name.$invalid && submitted) || v$.name.$pending.$response" class="p-error">{{v$.name.required.$message.replace('Value', 'Name')}}</small>
                                     </div>
@@ -35,7 +35,7 @@
                                         <div class="p-float-label p-input-icon-right">
                                             <i class="pi pi-envelope" />
                                             <InputText id="email" v-model="v$.email.$model" :class="{'p-invalid':v$.email.$invalid && submitted}" aria-describedby="email-error"/>
-                                            <label for="email" :class="{'p-error':v$.email.$invalid && submitted}">Email*</label>
+                                            <label for="email" :class="{'p-error':v$.email.$invalid && submitted}">E-mail*</label>
                                         </div>
                                         <span v-if="v$.email.$error && submitted">
                                             <span id="email-error" v-for="(error, index) of v$.email.$errors" :key="index">
@@ -48,21 +48,21 @@
                                         <div class="p-float-label">
                                             <Password id="password" v-model="v$.password.$model" :class="{'p-invalid':v$.password.$invalid && submitted}" toggleMask>
                                                 <template #header>
-                                                    <h6>Pick a password</h6>
+                                                    <h6>Força da senha</h6>
                                                 </template>
                                                 <template #footer="sp">
                                                     {{sp.level}}
                                                     <Divider />
-                                                    <p class="mt-2">Suggestions</p>
+                                                    <p class="mt-2">Requisitos</p>
                                                     <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                                                        <li>At least one lowercase</li>
-                                                        <li>At least one uppercase</li>
-                                                        <li>At least one numeric</li>
-                                                        <li>Minimum 8 characters</li>
+                                                        <li>Pelo menos uma minúscula</li>
+                                                        <li>Pelo menos uma maiúscula</li>
+                                                        <li>Pelo menos um numérico</li>
+                                                        <li>Mínimo de 8 caracteres</li>
                                                     </ul>
                                                 </template>
                                             </Password>
-                                            <label for="password" :class="{'p-error':v$.password.$invalid && submitted}">Password*</label>
+                                            <label for="password" :class="{'p-error':v$.password.$invalid && submitted}">Senha*</label>
                                         </div>
                                         <small v-if="(v$.password.$invalid && submitted) || v$.password.$pending.$response" class="p-error">{{v$.password.required.$message.replace('Value', 'Password')}}</small>
                                     </div>
@@ -81,9 +81,9 @@
                         <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                             <div class="flex align-items-center flex-column pt-6 px-3">
                                 <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
-                                <h5>Registration Successful!</h5>
+                                <h5>Cadastrado com Sucesso!</h5>
                                 <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                                    Your account is registered under name <b>{{name}}</b> ; it'll be valid next 30 days without activation. Please check <b>{{email}}</b> for activation instructions.
+                                    Sua conta está registrada em nome <b>{{name}}</b> ; será válido nos próximos 30 dias sem ativação. por favor, verifique <b>{{email}}</b> para instruções de ativação.
                                 </p>
                             </div>
                             <template #footer>
@@ -95,7 +95,7 @@
 
                         <div class="flex justify-content-center">
                             <div class="card">
-                                <h5 class="text-center">Register</h5>
+                                <h5 class="text-center">Login</h5>
                                 <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid">
                                     <div class="field">
                                         <div class="p-float-label p-input-icon-right">
@@ -113,22 +113,8 @@
                                     <div class="field">
                                         <div class="p-float-label">
                                             <Password id="passwordLogin" v-model="v$.password.$model" :class="{'p-invalid':v$.password.$invalid && submitted}" toggleMask>
-                                                <template #header>
-                                                    <h6>Pick a password</h6>
-                                                </template>
-                                                <template #footer="sp">
-                                                    {{sp.level}}
-                                                    <Divider />
-                                                    <p class="mt-2">Suggestions</p>
-                                                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                                                        <li>At least one lowercase</li>
-                                                        <li>At least one uppercase</li>
-                                                        <li>At least one numeric</li>
-                                                        <li>Minimum 8 characters</li>
-                                                    </ul>
-                                                </template>
                                             </Password>
-                                            <label for="passwordLogin" :class="{'p-error':v$.password.$invalid && submitted}">Password*</label>
+                                            <label for="passwordLogin" :class="{'p-error':v$.password.$invalid && submitted}">Senha*</label>
                                         </div>
                                         <small v-if="(v$.password.$invalid && submitted) || v$.password.$pending.$response" class="p-error">{{v$.password.required.$message.replace('Value', 'Password')}}</small>
                                     </div>
