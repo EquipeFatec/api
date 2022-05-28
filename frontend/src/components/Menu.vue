@@ -6,6 +6,9 @@
               <Button class="menu-button" @click="openModal">
                 <img src="../assets/upload.png" class="menu-image"/>
               </Button>
+              <Button class="menu-button" @click="download">
+                <img src="../assets/download.png" class="menu-image"/>
+              </Button>
             </div>
         </div>
     </div>
