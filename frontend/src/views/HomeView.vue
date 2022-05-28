@@ -66,9 +66,9 @@
                                         </div>
                                         <small v-if="(v$.password.$invalid && submitted) || v$.password.$pending.$response" class="p-error">{{v$.password.required.$message.replace('Value', 'Password')}}</small>
                                     </div>
-                                    <router-link to="/dashboard">
+                                    <!-- <router-link to="/dashboard"> -->
                                        <Button type="submit" label="Cadastrar" class="mt-2" />
-                                     </router-link>
+                                     <!-- </router-link> -->
                                     
                                 </form>
                             </div>
@@ -104,7 +104,7 @@
                                             <label for="emailLogin" :class="{'p-error':v$.email.$invalid && submitted}">Email*</label>
                                         </div>
                                         <span v-if="v$.email.$error && submitted">
-                                            <span id="email-error" v-for="(error, index) of v$.email.$errors" :key="index">
+                                            <span id="emailLogin-error" v-for="(error, index) of v$.email.$errors" :key="index">
                                             <small class="p-error">{{error.$message}}</small>
                                             </span>
                                         </span>
@@ -142,15 +142,12 @@ import Password from 'primevue/password';
 import Divider from 'primevue/divider';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
-//import CountryService from './service/CountryService';
 import { email, required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
-
-// import CountryService from './service/CountryService';
+import axios from 'axios';
 
 export default{
-        name: "Dashboard",
-        components:{
+        components: {
         Splitter,
         SplitterPanel,
         Button,
@@ -166,15 +163,10 @@ setup: () => ({ v$: useVuelidate() }),
             name: '',
             email: '',
             password: '',
-            date: null,
-            country: null,
-            accept: null,
             submitted: false,
-            countries: null,
             showMessage: false
         }
     },
-    countryService: null,
     validations() {
         return {
             name: {
@@ -185,9 +177,6 @@ setup: () => ({ v$: useVuelidate() }),
                 email
             },
             password: {
-                required
-            },
-            accept: {
                 required
             }
         }
@@ -202,15 +191,27 @@ setup: () => ({ v$: useVuelidate() }),
         handleSubmit(isFormValid) {
             this.submitted = true;
 
+            let usuario = {
+                id: null,
+                nome: this.name,
+                //email: this.email,
+                senha: this.password,
+                autorizacoes: [{id: 1, nome:'ADMIN'}]
+            }
+
+            console.log(usuario)
             if (!isFormValid) {
                 return;
             }
+
+            // axios.post("http://localhost:8081/security", usuario).then((response) => {
+            //     console.log(response)
+            // })
 
             this.toggleDialog();
         },
         toggleDialog() {
             this.showMessage = !this.showMessage;
-        
             if(!this.showMessage) {
                 this.resetForm();
             }
