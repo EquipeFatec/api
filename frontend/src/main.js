@@ -7,6 +7,7 @@ import 'primeicons/primeicons.css'                           //icons
 import router from './router'
 import axios from 'axios'
 import ToastService from 'primevue/toastservice'
+import 'primeicons/primeicons.css'
 axios.defaults.baseURL = 'http://localhost:8081/'
 
 createApp(App)

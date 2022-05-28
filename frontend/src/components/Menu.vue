@@ -3,6 +3,9 @@
     <div class="row">
         <div>
             <div class="menu">
+              <Button class="menu-button" @click="openModalUser">
+                <img src="../assets/user.png" class="menu-image"/>
+              </Button>
               <Button class="menu-button" @click="openModal">
                 <img src="../assets/upload.png" class="menu-image"/>
               </Button>
@@ -21,6 +24,10 @@
       </FileUpload>
   </Dialog>
 
+  <Dialog header="Minha Conta" v-model:visible="displayModalUser" :style="{width: '50vw'}" :modal="true">
+      <!-- ToDo: Exibir informações da conta-->
+  </Dialog>
+
 </template>
 
 <script>
@@ -30,6 +37,7 @@ import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 import axios from "axios";
 import Toast from 'primevue/toast';
+import {PrimeIcons} from 'primevue/api';
 
 export default {
   name: 'Menu',
@@ -37,16 +45,21 @@ export default {
       Dialog,
       Button,
       FileUpload,
-      Toast
+      Toast,
+      PrimeIcons
   },
   data() {
 		return {
-			displayModal: false
+			displayModal: false,
+      displayModalUser: false
 		}
 	},
   methods: {
     openModal() {
       this.displayModal = true;
+    },
+    openModalUser() {
+      this.displayModalUser = true;
     },
     upload(event){
       console.log(event.files[0])
