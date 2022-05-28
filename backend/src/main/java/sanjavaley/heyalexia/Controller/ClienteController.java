@@ -34,7 +34,8 @@ public class ClienteController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	
+
+
 	@GetMapping(value = "/genero")
 	public List<Integer> contaGenero(){
 		List<Integer> genero = service.genero();

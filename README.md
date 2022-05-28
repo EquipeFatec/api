@@ -16,25 +16,25 @@ Projeto Integrador do 4º Semestre de Banco de Dados - FATEC Profº Jessen Vidal
           <a href="https://www.linkedin.com/mwlite/in/ana-beatriz-araujo"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
       </td>
       <td align="center">
+          <p><b>Scrum Master</b></p>
+          <p><img src="https://github.com/EquipeFatec/api/blob/main/images/Time/Guilherme.jpg"/></p>
+          <p><a href="https://github.com/guitambau">Guilherme de Oliveira <br/> Perfeito </a>
+          <a href="https://www.linkedin.com/in/guilherme-perfeito-a76729168/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
+        </td>
+      <td align="center">
           <p><b>Dev</b></p>
           <p><img src="https://github.com/EquipeFatec/api/blob/main/images/Time/Alexia.jpg"/></p>
           <p><a href="https://github.com/alexiakarine">Alexia Karine Silva <br/> dos Santos </a>
           <a href="https://www.linkedin.com/in/alexia-karine-silva-5b0a79116/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
         </td>
+    </tr>
+    <tr>
       <td align="center">
           <p><b>Dev</b></p>
           <p><img src="https://github.com/EquipeFatec/api/blob/main/images/Time/Gabriel.jpg"/></p>
           <p><a href="https://github.com/gabsana">Gabriel Oliveira Sana </a>
           <a href="https://www.linkedin.com/in/gabriel-sana-ba91a4147/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
           <br/>
-        </td>
-    </tr>
-    <tr>
-      <td align="center">
-          <p><b>Dev</b></p>
-          <p><img src="https://github.com/EquipeFatec/api/blob/main/images/Time/Guilherme.jpg"/></p>
-          <p><a href="https://github.com/guitambau">Guilherme de Oliveira <br/> Perfeito </a>
-          <a href="https://www.linkedin.com/in/guilherme-perfeito-a76729168/"><img src="https://github.com/EquipeFatec/api/blob/main/images/linkedin.png"/></a></p>
         </td>
       <td align="center">
           <p><b>Dev</b></p>
@@ -110,4 +110,4 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver uma aplicação
 # :open_file_folder: Entregas
 
 - <a href="https://github.com/EquipeFatec/api/blob/main/documents/sprint1.md/">Sprint 1</a>
-- Sprint 2 - Em desenvolvimento
+- <a href="https://github.com/EquipeFatec/api/blob/main/documents/sprint2.md/">Sprint 2</a>

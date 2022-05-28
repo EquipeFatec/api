@@ -22,4 +22,6 @@ public interface ItemVendaRepository extends JpaRepository<ItemVenda, Long>{
 
 	@Query(nativeQuery = true, value = "SELECT SUM(it.ITV_VALOR) from item_venda it join venda v on v.venda_id = it.venda_id ")
 	String valorTotal();
+
+
 }

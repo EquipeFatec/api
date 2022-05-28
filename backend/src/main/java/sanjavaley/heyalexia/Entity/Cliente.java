@@ -43,7 +43,6 @@ public class Cliente {
 	
 	 @Column(name="CLIENTE_TELEFONE")
 	 private String ClienteTelefone;
-	
 	 
 	 @Column(name="CLIENTE_EMAIL")
 	 private String ClienteEmail;
