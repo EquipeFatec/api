@@ -100,7 +100,7 @@
                                     <div class="field">
                                         <div class="p-float-label p-input-icon-right">
                                             <i class="pi pi-envelope" />
-                                            <InputText id="emailLogin" v-model="v$.email.$model" :class="{'p-invalid':v$.email.$invalid && submitted}" aria-describedby="email-error"/>
+                                            <InputText id="emailLogin" v-model="v$.email.$modelLogin" :class="{'p-invalid':v$.email.$invalid && submitted}" aria-describedby="email-error"/>
                                             <label for="emailLogin" :class="{'p-error':v$.email.$invalid && submitted}">Email*</label>
                                         </div>
                                         <span v-if="v$.email.$error && submitted">
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="field">
                                         <div class="p-float-label">
-                                            <Password id="passwordLogin" v-model="v$.password.$model" :class="{'p-invalid':v$.password.$invalid && submitted}" toggleMask>
+                                            <Password id="passwordLogin" v-model="v$.password.$modelLogin" :class="{'p-invalid':v$.password.$invalid && submitted}" toggleMask>
                                             </Password>
                                             <label for="passwordLogin" :class="{'p-error':v$.password.$invalid && submitted}">Senha*</label>
                                         </div>
