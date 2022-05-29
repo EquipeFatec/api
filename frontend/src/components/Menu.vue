@@ -13,7 +13,7 @@
                 <img src="../assets/download.png" class="menu-image"/>
               </Button>
             </div>
-        </div>
+         </div>
     </div>
 
   <Dialog header="Upload de Arquivos" v-model:visible="displayModal" :style="{width: '50vw'}" :modal="true">
@@ -23,10 +23,50 @@
           </template>
       </FileUpload>
   </Dialog>
-
   <Dialog header="Minha Conta" v-model:visible="displayModalUser" :style="{width: '50vw'}" :modal="true">
-      <!-- ToDo: Exibir informações da conta-->
-  </Dialog>
+   <Splitter style="height: 300px" class="mb-5">
+
+                <SplitterPanel class="flex align-items-center justify-content-center">
+                    <div class="grid p-fluid" style="margin-left:40%; margin-top:40%">
+                           <Avatar icon="pi pi-user" class="mr-20" size="large" style="background-color:#9C27B0; color: #ffffff; align-items: center;" shape="circle" />
+                    </div>
+                </SplitterPanel>
+                <SplitterPanel class="flex align-items-center justify-content-center">
+                   <div class="grid p-fluid">
+                      <div class="col-12 md:col-4">
+                        <br>
+                        <div class="p-inputgroup">
+                          <span class="p-inputgroup-addon">
+                              <i class="pi pi-envelope"></i>
+                          </span>
+                          <InputText placeholder="E-mail" />
+                        </div>
+                        <br>
+                        <div class="p-inputgroup">
+                          <span class="p-inputgroup-addon">
+                              <i class="pi pi-phone"></i>
+                          </span>
+                          <InputText placeholder="Contato" />
+                        </div>
+                        <br>
+                        <div class="p-inputgroup">
+                          <span class="p-inputgroup-addon">
+                              <i class="pi pi-lock"></i>
+                          </span>
+                          <InputText placeholder="Password" />
+                        </div>
+                        <br>
+                        <br>
+                        <span class="p-buttonset">
+                             <Button label="Save" icon="pi pi-check" />
+                        </span>
+                    </div>
+                    </div>
+
+                </SplitterPanel>
+      </Splitter>
+          
+    </Dialog>
 
 </template>
 
@@ -38,6 +78,12 @@ import FileUpload from 'primevue/fileupload';
 import axios from "axios";
 import Toast from 'primevue/toast';
 import {PrimeIcons} from 'primevue/api';
+import InputText from 'primevue/inputtext';
+import Splitter from 'primevue/splitter';
+import SplitterPanel from 'primevue/splitterpanel';
+import Password from 'primevue/password';
+import Avatar from 'primevue/avatar';
+import AvatarGroup from 'primevue/avatargroup';
 
 export default {
   name: 'Menu',
@@ -46,12 +92,23 @@ export default {
       Button,
       FileUpload,
       Toast,
-      PrimeIcons
+      PrimeIcons,
+      InputText,
+      Splitter,
+      SplitterPanel,
+      Password,
+      Avatar,
+      AvatarGroup     
+
   },
   data() {
 		return {
 			displayModal: false,
-      displayModalUser: false
+      displayModalUser: false,
+      checked1: false,
+      checked2: false,
+      radioValue1: '',
+     radioValue2: ''
 		}
 	},
   methods: {
