@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @Table(name="TIPO_PAGAMENTO")
 public class TipoPagamento {
 	
-	
 	@Id
     @GeneratedValue
 	@Column(name = "TIPO_PAG_ID")

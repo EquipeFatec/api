@@ -14,7 +14,8 @@ public class ClienteServiceImp {
 
 	@Autowired
 	private ClienteRepository repository;
-	
+
+
 	
 	public List<Cliente> findByNome(String _nome) {
 		Optional<List<Cliente>> list = repository.findByNome(_nome);	
@@ -23,11 +24,9 @@ public class ClienteServiceImp {
 	}
 		
 	public List<Integer> genero(){
-		List<Integer> teste = repository.contadorGenero();
-		
-		return teste;
+		List<Integer> genero = repository.contadorGenero();
+		return genero;
 	}
-	
 
 	public List<Cliente> findAll() {
 		List<Cliente> list = repository.findAll();
@@ -38,8 +37,15 @@ public class ClienteServiceImp {
 		repository.deleteAll();
 	}
 	
-	public List<Cliente> orderByIdade(){
-		List<Cliente> list = repository.orderByIdade();
+	public List<String> orderByIdade(){
+		List<String> list = repository.orderByIdade();
 		return list;
 	}
+
+	public List<String> orderByCidade(){
+		List<String> list = repository.orderByCidade();
+		return list;
+	}
+
+
 }
