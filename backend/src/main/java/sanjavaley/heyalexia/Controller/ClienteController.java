@@ -1,11 +1,8 @@
 package sanjavaley.heyalexia.Controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +43,6 @@ public class ClienteController {
 	@GetMapping(value = "/todos")
 	public ResponseEntity<List<Cliente>> buscaTodos(){
 		List<Cliente> list = service.findAll();
-
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -56,11 +52,14 @@ public class ClienteController {
 	}
 
 	@GetMapping(value = "/idade")
-	public ResponseEntity<List<Cliente>> orderByIdade(){
-		List<Cliente> cliente = service.orderByIdade();
+	public ResponseEntity<List<String>> orderByIdade(){
+		List<String> cliente = service.orderByIdade();
+		return ResponseEntity.ok().body(cliente);
+	}
 
-		Cliente clientes = new Cliente();
-
-		return null;
+	@GetMapping(value = "/cidade")
+	public ResponseEntity<List<String>> orderByCidade(){
+		List<String> cliente = service.orderByCidade();
+		return ResponseEntity.ok().body(cliente);
 	}
 }
