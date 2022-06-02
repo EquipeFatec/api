@@ -30,7 +30,7 @@ public class Usuario {
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "uau_usuario_autorizacao",
+    @JoinTable(name = "usuario_autorizacao",
             joinColumns = { @JoinColumn(name = "usu_id")},
             inverseJoinColumns = { @JoinColumn(name = "aut_id") }
     )

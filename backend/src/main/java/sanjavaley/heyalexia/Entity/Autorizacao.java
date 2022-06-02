@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "aut_autorizacao")
+@Table(name = "autorizacao")
 public class Autorizacao {
 
     @Id
