@@ -12,18 +12,18 @@ import sanjavaley.heyalexia.Security.Login;
 
 @RestController
 @RequestMapping(value = "/login")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080")
 public class LoginController {
     @Autowired
     private AuthenticationManager authManager;
 
     @PostMapping()
     public Login autenticar(@RequestBody Login login) throws JsonProcessingException {
-        Authentication auth = new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
+        Authentication auth = new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
         auth = authManager.authenticate(auth);
         login.setPassword(null);
         login.setToken(JwtUtils.generateToken(auth));
-        login.setAutorizacao(auth.getAuthorities().iterator().next().getAuthority());
+        //login.setAutorizacao(auth.getAuthorities().iterator().next().getAuthority());
         return login;
     }
 }

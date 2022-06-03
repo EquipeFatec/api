@@ -4,6 +4,7 @@ package sanjavaley.heyalexia.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sanjavaley.heyalexia.Entity.Usuario;
+import sanjavaley.heyalexia.Reposioty.SegurancaRepository;
 import sanjavaley.heyalexia.Service.SegurancaServiceImp;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 public class SegurancaController {
 
     @Autowired
-    private SegurancaServiceImp segurancaService;
+    private SegurancaRepository segurancaService;
 
     @GetMapping
     public List<Usuario> listarTodosUsuario() {

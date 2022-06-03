@@ -4,6 +4,7 @@ package sanjavaley.heyalexia.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import sanjavaley.heyalexia.Email.SpringEmailMain;
 import sanjavaley.heyalexia.Entity.Email;
@@ -21,12 +22,15 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository uRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @PostMapping("/usuario")
     public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario){
         try{
             Usuario _usuario = uRepository
-                    .save(new Usuario(usuario.getNome(), usuario.getSenha()
-                    , usuario.getAutorizacoes(), usuario.getEmail()));
+                    .save(new Usuario(usuario.getNome(), encoder.encode(usuario.getSenha()),
+                    usuario.getAutorizacoes(), usuario.getEmail()));
             return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
         }catch(Exception e){
             e.printStackTrace();

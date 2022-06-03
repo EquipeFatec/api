@@ -56,15 +56,15 @@ public class SegurancaServiceImp implements SegurancaRepository {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepo.getByNome(username);
-        if (usuario == null) {
-            throw new UsernameNotFoundException("Usuário " + username + " não encontrado!");
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<Usuario> usuario = usuarioRepo.findByEmail(email);
+        if (usuario.isEmpty()) {
+            throw new UsernameNotFoundException("Usuário " + email + " não encontrado!");
         }
-        return User.builder().username(username).password(usuario.getSenha())
-                .authorities(usuario.getAutorizacoes().stream()
+        return User.builder().username(email).password(usuario.get().getSenha())
+                .authorities(usuario.get().getAutorizacoes().stream()
                         .map(Autorizacao::getNome).collect(Collectors.toList())
-                        .toArray(new String[usuario.getAutorizacoes().size()]))
+                        .toArray(new String[usuario.get().getAutorizacoes().size()]))
                 .build();
     }
 }
