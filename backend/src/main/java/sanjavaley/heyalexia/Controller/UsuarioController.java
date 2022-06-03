@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sanjavaley.heyalexia.Email.SpringEmailMain;
 import sanjavaley.heyalexia.Entity.Email;
+import sanjavaley.heyalexia.Entity.TipoProduto;
 import sanjavaley.heyalexia.Entity.Usuario;
 import sanjavaley.heyalexia.Reposioty.UsuarioRepository;
 
@@ -64,6 +65,12 @@ public class UsuarioController {
     @PostMapping(value = "/email")
     public void send(@RequestBody Email email){
         SpringEmailMain.main(email.getEmail(), email.getAssunto(), email.getCorpo());
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Usuario> findById(@PathVariable long id) {
+        Usuario obj = uRepository.getById(id);
+        return ResponseEntity.ok().body(obj);
     }
 
 

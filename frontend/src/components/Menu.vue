@@ -12,6 +12,9 @@
               <Button class="menu-button" @click="download">
                 <img src="../assets/download.png" class="menu-image"/>
               </Button>
+              <Button class="menu-button" @click="openModalManual">
+                <img src="../assets/icon_manual.png" class="menu-image"/>
+              </Button>
             </div>
          </div>
     </div>
@@ -24,7 +27,7 @@
       </FileUpload>
   </Dialog>
   <Dialog header="Minha Conta" v-model:visible="displayModalUser" :style="{width: '50vw'}" :modal="true">
-   <Splitter style="height: 300px" class="mb-5">
+      <Splitter style="height: 300px" class="mb-5">
 
                 <SplitterPanel class="flex align-items-center justify-content-center">
                     <div class="grid p-fluid" style="margin-left:40%; margin-top:40%">
@@ -67,6 +70,31 @@
       </Splitter>
           
     </Dialog>
+    <Dialog header="Manual do usuário" v-model:visible="displayModalManual" :style="{width: '50vw'}" :modal="true">
+        <div class="grid">
+            <div class="col-12 md:col-4 p-5">
+                <ScrollPanel style="width: 100%; height: 200px">
+                        <h3><b>1.Inserção de dados</b></h3>
+                        A inserção de dados tem como objetivo popular o sistema para que seja possível a visualização dos dados através dos gráficos e análises presentes no sistema. Para realizar a inserção de dados, o usuário deve:
+                        <p>1.1	No menu lateral direito, clicar no ícone “Inserir CSV”, botão “Choose” em seguida selecionar o arquivo CSV desejado, após a escolha do CSV, clicar no botão Abrir e posteriormente no botão “Upload“.</p>
+                        <p>1.2	 No menu lateral direito, clicar no ícone “Inserir CSV”, abrir o local onde o arquivo CSV se encontra, em seguida arrastar o arquivo CSV para a área indicada “Arraste e solte arquivos para Upload” e posteriormente no botão “Upload“.</p>
+                        
+                        <h3><b>2.Exportação de Relatórios</b></h3>
+                        A exportação de relatórios tem como objetivo permitir que o usuário tenha os dados do sistema em um arquivo “CSV” para o fim que desejar. Para realizar esta exportação, o usuário deve:
+                        No menu lateral direito,
+                        
+                        <h3><b>3.Dados do usuário</b></h3>
+                        A exibição dos dados do usuário tem como objetivo permitir que o usuário altere seus dados cadastrais como E-mail, Telefone e Senha. Para realizar as alterações citadas acima o usuário deve:
+                        <p>3.1 No menu lateral direito, clicar no ícone “Meus dados”, para alterar a imagem do usuário, clique no ícone “Alterar imagem” em seguida clique no botão “Salvar”.</p>
+                        <p>3.2 No menu lateral direito, clicar no ícone “Meus dados”, para alterar o e-mail do usuário, clique no campo “E-mail”, digite o novo endereço eletrônico, em seguida clique no botão “Salvar”.</p>
+                        <p>3.2 No menu lateral direito, clicar no ícone “Meus dados”, para alterar o telefone do usuário, clique no campo “Telefone”, digite o novo número, em seguida clique no botão “Salvar”.</p>
+                        <p>3.3 No menu lateral direito, clicar no ícone “Meus dados”, para alterar a senha do usuário, clique no campo “Senha”, digite a nova credencial de acesso, em seguida clique no botão “Salvar”.</p>
+
+                   
+                </ScrollPanel>
+            </div>
+         </div>
+    </Dialog> 
 
 </template>
 
@@ -84,6 +112,8 @@ import SplitterPanel from 'primevue/splitterpanel';
 import Password from 'primevue/password';
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';
+import { updateExpression } from '@babel/types';
+import ScrollPanel from 'primevue/scrollpanel';
 
 export default {
   name: 'Menu',
@@ -105,10 +135,12 @@ export default {
 		return {
 			displayModal: false,
       displayModalUser: false,
+      displayModalManual: false,
       checked1: false,
       checked2: false,
       radioValue1: '',
-     radioValue2: ''
+     radioValue2: '',
+      
 		}
 	},
   methods: {
@@ -117,6 +149,10 @@ export default {
     },
     openModalUser() {
       this.displayModalUser = true;
+    },
+    openModalManual(){
+      this.displayModalManual = true;
+
     },
     upload(event){
       console.log(event.files[0])
@@ -132,12 +168,18 @@ export default {
       .catch(() => {
         this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
       })
+    },
+    exibir(){
+      axios.get()
+    },
+    update(event){
+      axios.put
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .menu-container {
   z-index: 1000;
   position: fixed;
@@ -184,4 +226,42 @@ export default {
     min-width: 6rem;
 }
 
+::v-deep(.p-scrollpanel) 
+    p {
+        padding: .5rem;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+.custombar1 {
+    .p-scrollpanel-wrapper {
+      border-right: 9px solid var(--surface-ground);
+    }
+
+    .p-scrollpanel-bar {
+        background-color: var(--primary-color);
+        opacity: 1;
+        transition: background-color .2s;
+
+        :hover {
+          background-color: #007ad9;
+        }
+    }
+}
+
+.custombar2 {
+    .p-scrollpanel-wrapper {
+        border-right: 9px solid var(--surface-border);
+        border-bottom: 9px solid var(--surface-border);
+    }
+
+    .p-scrollpanel-bar {
+        background-color: var(--surface-ground);
+        border-radius: 0;
+        opacity: 1;
+        transition: background-color .2s;
+    }
+}  
+
+    
 </style>

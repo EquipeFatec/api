@@ -1,5 +1,5 @@
 package sanjavaley.heyalexia.Entity;
-
+//Onde está as entidades de tabela
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
