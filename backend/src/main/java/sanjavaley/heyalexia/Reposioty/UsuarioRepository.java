@@ -6,11 +6,16 @@ import org.springframework.stereotype.Repository;
 import sanjavaley.heyalexia.Entity.Usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     Usuario getByNome(String nome);
+
+    Optional<Usuario> findById(Long id);
+
+    Optional<Usuario> findByEmail(String email);
 
     Usuario getByNomeAndSenha(String nome, String senha);
 
