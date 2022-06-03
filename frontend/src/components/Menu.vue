@@ -42,26 +42,26 @@
                           <span class="p-inputgroup-addon">
                               <i class="pi pi-envelope"></i>
                           </span>
-                          <InputText placeholder="E-mail" />
+                          <InputText placeholder="E-mail" :value=user.email>{{user.email}}</InputText>
                         </div>
                         <br>
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon">
                               <i class="pi pi-phone"></i>
                           </span>
-                          <InputText placeholder="Contato" />
+                          <InputText placeholder="Nome" :value=user.nome>{{user.nome}}</InputText>
                         </div>
                         <br>
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon">
                               <i class="pi pi-lock"></i>
                           </span>
-                          <InputText placeholder="Password" />
+                          <Password placeholder="Password" :value=user.senha>{{user.senha}}</Password>
                         </div>
                         <br>
                         <br>
                         <span class="p-buttonset">
-                             <Button label="Save" icon="pi pi-check" />
+                             <Button label="Save" icon="pi pi-check" @click="updateUser(this.user)"/>
                         </span>
                     </div>
                     </div>
@@ -109,11 +109,11 @@ import {PrimeIcons} from 'primevue/api';
 import InputText from 'primevue/inputtext';
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
-import Password from 'primevue/password';
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';
-import { updateExpression } from '@babel/types';
-import ScrollPanel from 'primevue/scrollpanel';
+import Password from 'primevue/password';
+
+
 
 export default {
   name: 'Menu',
@@ -126,9 +126,9 @@ export default {
       InputText,
       Splitter,
       SplitterPanel,
-      Password,
       Avatar,
-      AvatarGroup     
+      AvatarGroup,
+      Password     
 
   },
   data() {
@@ -140,6 +140,12 @@ export default {
       checked2: false,
       radioValue1: '',
      radioValue2: '',
+     user:{
+       id:null,
+       nome:'',
+       email:'',
+       senha:''
+     }
       
 		}
 	},
@@ -149,31 +155,40 @@ export default {
     },
     openModalUser() {
       this.displayModalUser = true;
+      this.exibir("teste@teste.com.br")
+      
     },
     openModalManual(){
       this.displayModalManual = true;
 
     },
-    upload(event){
-      console.log(event.files[0])
-      let formData = new FormData()
-      formData.append('file', event.files[0])
-      axios.post("http://localhost:8081/upload/cliente", formData, {
-        headers: {
-           "Content-Type": "multipart/form-data",
-         }
-      }).then(() => {
-        this.$toast.add({severity: 'success', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
-      })
-      .catch(() => {
-        this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
+    // upload(event){
+    //   console.log(event.files[0])
+    //   let formData = new FormData()
+    //   formData.append('file', event.files[0])
+    //   axios.post("http://localhost:8081/upload/cliente", formData, {
+    //     headers: {
+    //        "Content-Type": "multipart/form-data",
+    //      }
+    //   }).then(() => {
+    //     this.$toast.add({severity: 'success', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
+    //   })
+    //   .catch(() => {
+    //     this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
+    //   })
+    // },
+    exibir(email){
+      axios.get("http://localhost:8081/cadastro/findbyemail/"+email)
+        .then((response)=>{
+            this.user=response.data;
       })
     },
-    exibir(){
-      axios.get()
-    },
-    update(event){
-      axios.put
+    updateUser(user){
+      console.log(user);
+        axios.put("http://localhost:8081/cadastro", user)
+        .then((response)=>{
+          console.log(response.data);
+        })
     }
   }
 }
