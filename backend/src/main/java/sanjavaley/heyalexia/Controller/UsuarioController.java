@@ -28,6 +28,7 @@ public class UsuarioController {
                     , usuario.getAutorizacoes(), usuario.getEmail()));
             return new ResponseEntity<>(_usuario, HttpStatus.CREATED);
         }catch(Exception e){
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
