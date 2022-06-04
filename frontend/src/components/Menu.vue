@@ -156,27 +156,12 @@ export default {
     openModalUser() {
       this.displayModalUser = true;
       this.exibir("teste@teste.com.br")
-      
+      //console.log(this.$route.query.email)
     },
     openModalManual(){
       this.displayModalManual = true;
 
     },
-    // upload(event){
-    //   console.log(event.files[0])
-    //   let formData = new FormData()
-    //   formData.append('file', event.files[0])
-    //   axios.post("http://localhost:8081/upload/cliente", formData, {
-    //     headers: {
-    //        "Content-Type": "multipart/form-data",
-    //      }
-    //   }).then(() => {
-    //     this.$toast.add({severity: 'success', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
-    //   })
-    //   .catch(() => {
-    //     this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
-    //   })
-    // },
     exibir(email){
       axios.get("http://localhost:8081/cadastro/findbyemail/"+email)
         .then((response)=>{

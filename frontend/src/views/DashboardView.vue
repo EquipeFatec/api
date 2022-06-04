@@ -105,6 +105,7 @@ export default {
     SelectButton,
   },
   mounted() {
+    console.log(this.$route.query.email)
     axios.get("http://localhost:8081/item-venda/top").then((response) => {
       this.itens = response.data;
       this.chartData.labels = []

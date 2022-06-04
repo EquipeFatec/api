@@ -54,6 +54,7 @@ public class UsuarioController {
         try{
             Optional<Usuario> toEdit = uRepository.findById(usuario.getId());
             if(toEdit.isPresent()){
+                usuario.setSenha(encoder.encode(usuario.getSenha()));
                 Usuario save = uRepository.save(usuario);
                 return new ResponseEntity<>(save, HttpStatus.OK);
             }
