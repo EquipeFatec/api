@@ -12,6 +12,7 @@ import sanjavaley.heyalexia.Entity.TipoProduto;
 import sanjavaley.heyalexia.Entity.Usuario;
 import sanjavaley.heyalexia.Reposioty.UsuarioRepository;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -54,8 +55,15 @@ public class UsuarioController {
         try{
             Optional<Usuario> toEdit = uRepository.findById(usuario.getId());
             if(toEdit.isPresent()){
-                usuario.setSenha(encoder.encode(usuario.getSenha()));
-                Usuario save = uRepository.save(usuario);
+                Usuario save = new Usuario();
+                save.setId(usuario.getId());
+                save.setEmail(usuario.getEmail());
+                save.setNome(usuario.getNome());
+
+                save.setSenha(!Objects.equals(usuario.getSenha(), toEdit.get().getSenha()) ?
+                        encoder.encode(usuario.getSenha()) : usuario.getSenha());
+
+                uRepository.save(save);
                 return new ResponseEntity<>(save, HttpStatus.OK);
             }
             else{

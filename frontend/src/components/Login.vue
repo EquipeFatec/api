@@ -104,9 +104,7 @@ setup: () => ({ v$: useVuelidate() }),
 
             axios.post("http://localhost:8081/login", usuario).then(() => {
                 let email = usuario.email
-
-                //ToDo: Ajustar envio do email para a Dashboard para poder buscar os dados do usuário
-                router.push({ path: '/dashboard', params: { email } })
+                router.push({ path: '/dashboard', query: { email } })
             })
             .catch(() => {
                 this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Não foi possível realizar o login. Tente novamente mais tarde.', life: 3000});

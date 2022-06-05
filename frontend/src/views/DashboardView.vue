@@ -1,5 +1,5 @@
 <template>
-  <Menu></Menu>
+  <Menu :email="this.emailUsuario"></Menu>
   <div style="margin-left:115%; width:350px">
       <div style="font-size: 40pt; text-shadow: 1px 1px 3px black;"> Hey Alexia </div>
   </div>
@@ -81,7 +81,7 @@
 </template>
 
 <script>
-// import Menu from "./components/Menu.vue";
+
 import Menu from "@/components/Menu.vue";
 import Card from "primevue/card";
 import axios from "axios";
@@ -89,8 +89,6 @@ import Button from "primevue/button";
 import Chart from "primevue/chart";
 import DataTable from "primevue/datatable";
 import Column from 'primevue/column';
-import Divider from 'primevue/divider';
-import { ref } from 'vue';
 import SelectButton from 'primevue/selectbutton';
 
 export default {
@@ -105,7 +103,7 @@ export default {
     SelectButton,
   },
   mounted() {
-    console.log(this.$route.query.email)
+    this.emailUsuario = this.$route.query.email
     axios.get("http://localhost:8081/item-venda/top").then((response) => {
       this.itens = response.data;
       this.chartData.labels = []
@@ -190,6 +188,7 @@ export default {
       clientesSexo: [],
       analiseValorTotal: 0,
       analiseQuantidadeTotal: 0,
+      emailUsuario: '',
       //Select
             value1: 'Idade',
             options: ['Idade', 'Cidade'],

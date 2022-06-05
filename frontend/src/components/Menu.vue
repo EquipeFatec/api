@@ -3,16 +3,16 @@
     <div class="row">
         <div>
             <div class="menu">
-              <Button class="menu-button" @click="openModalUser">
+              <Button class="menu-button" @click="openModalUser" v-tooltip="'Minha Conta'">
                 <img src="../assets/user.png" class="menu-image"/>
               </Button>
-              <Button class="menu-button" @click="openModal">
+              <Button class="menu-button" @click="openModal" v-tooltip="'Upload'">
                 <img src="../assets/upload.png" class="menu-image"/>
               </Button>
-              <Button class="menu-button" @click="download">
+              <!-- <Button class="menu-button" @click="download">
                 <img src="../assets/download.png" class="menu-image"/>
-              </Button>
-              <Button class="menu-button" @click="openModalManual">
+              </Button> -->
+              <Button class="menu-button" @click="openModalManual" v-tooltip="'Manual'">
                 <img src="../assets/icon_manual.png" class="menu-image"/>
               </Button>
             </div>
@@ -42,21 +42,21 @@
                           <span class="p-inputgroup-addon">
                               <i class="pi pi-envelope"></i>
                           </span>
-                          <InputText placeholder="E-mail" :value=user.email>{{user.email}}</InputText>
+                          <InputText placeholder="E-mail" v-model="email" :value=user.email>{{user.email}}</InputText>
                         </div>
                         <br>
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon">
-                              <i class="pi pi-phone"></i>
+                              <i class="pi pi-user"></i>
                           </span>
-                          <InputText placeholder="Nome" :value=user.nome>{{user.nome}}</InputText>
+                          <InputText placeholder="Nome" v-model="nome" :value=user.nome>{{user.nome}}</InputText>
                         </div>
                         <br>
                         <div class="p-inputgroup">
                           <span class="p-inputgroup-addon">
                               <i class="pi pi-lock"></i>
                           </span>
-                          <Password placeholder="Password" :value=user.senha>{{user.senha}}</Password>
+                          <InputText type="password" placeholder="Password" v-model="senha" :value=user.senha>{{user.senha}}</InputText>
                         </div>
                         <br>
                         <br>
@@ -112,8 +112,7 @@ import SplitterPanel from 'primevue/splitterpanel';
 import Avatar from 'primevue/avatar';
 import AvatarGroup from 'primevue/avatargroup';
 import Password from 'primevue/password';
-
-
+import Tooltip from 'primevue/tooltip';
 
 export default {
   name: 'Menu',
@@ -128,9 +127,9 @@ export default {
       SplitterPanel,
       Avatar,
       AvatarGroup,
-      Password     
-
+      Password
   },
+  props: {email: String},
   data() {
 		return {
 			displayModal: false,
@@ -140,6 +139,7 @@ export default {
       checked2: false,
       radioValue1: '',
      radioValue2: '',
+     email: this.email,
      user:{
        id:null,
        nome:'',
@@ -155,8 +155,7 @@ export default {
     },
     openModalUser() {
       this.displayModalUser = true;
-      this.exibir("teste@teste.com.br")
-      //console.log(this.$route.query.email)
+      this.exibir(this.email);
     },
     openModalManual(){
       this.displayModalManual = true;
@@ -166,15 +165,26 @@ export default {
       axios.get("http://localhost:8081/cadastro/findbyemail/"+email)
         .then((response)=>{
             this.user=response.data;
+            console.log(response.data)
       })
     },
     updateUser(user){
-      console.log(user);
+      user.email = this.email
+      user.nome = this.nome
+      //ToDo: ver por que que a senha não está funcionando pra editar
+      //user.senha = this.senha
+      debugger
         axios.put("http://localhost:8081/cadastro", user)
         .then((response)=>{
-          console.log(response.data);
+            this.$toast.add({severity: 'success', summary: 'Usuário alterado com sucesso', life: 3000});
+        })
+        .catch(() => {
+            this.$toast.add({severity: 'error', summary: 'Erro ao editar usuário', life: 3000});
         })
     }
+  },
+  directives: {
+    'tooltip': Tooltip
   }
 }
 </script>
