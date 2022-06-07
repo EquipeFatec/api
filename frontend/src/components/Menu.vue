@@ -168,6 +168,21 @@ export default {
             console.log(response.data)
       })
     },
+    upload(event){
+      console.log(event.files[0])
+      let formData = new FormData()
+      formData.append('file', event.files[0])
+      axios.post("http://localhost:8081/upload/cliente", formData, {
+        headers: {
+           "Content-Type": "multipart/form-data",
+         }
+      }).then(() => {
+        this.$toast.add({severity: 'success', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
+      })
+      .catch(() => {
+        this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
+      })
+    },
     updateUser(user){
       user.email = this.email
       user.nome = this.nome
