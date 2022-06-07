@@ -111,4 +111,4 @@ Criado pela equipe _Sanja Valley_, este projeto visa desenvolver uma aplicação
 
 - <a href="https://github.com/EquipeFatec/api/blob/main/documents/sprint1.md/">Sprint 1</a>
 - <a href="https://github.com/EquipeFatec/api/blob/main/documents/sprint2.md/">Sprint 2</a>
-- Sprint 3 - Em Desenvolvimento
+- <a href="https://github.com/EquipeFatec/api/blob/main/documents/sprint3.md/">Sprint 3</a>
