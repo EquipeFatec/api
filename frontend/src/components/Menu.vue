@@ -1,10 +1,10 @@
 <template>
-  <Toast />
+  <Toast /> <!-- componente de exibir mensagens -->
     <div class="row">
         <div>
             <div class="menu">
-              <Button class="menu-button" @click="openModalUser" v-tooltip="'Minha Conta'">
-                <img src="../assets/user.png" class="menu-image"/>
+              <Button class="menu-button" @click="openModalUser" v-tooltip="'Minha Conta'"> <!-- Botão, o @click chama o metodo que vai abrir o modal de acordo com o nome, tooltip exibe quando passa o mouse em cima-->
+                <img src="../assets/user.png" class="menu-image"/> <!-- Imagem do botao -->
               </Button>
               <Button class="menu-button" @click="openModal" v-tooltip="'Upload'">
                 <img src="../assets/upload.png" class="menu-image"/>
@@ -19,8 +19,8 @@
          </div>
     </div>
 
-  <Dialog header="Upload de Arquivos" v-model:visible="displayModal" :style="{width: '50vw'}" :modal="true">
-      <FileUpload name="csv" :customUpload="true" @uploader="upload" :multiple="false" accept=".txt" :maxFileSize="1000000">
+  <Dialog header="Upload de Arquivos" v-model:visible="displayModal" :style="{width: '50vw'}" :modal="true"> <!-- Dialog é o modal que abre, esse se torna visivel quando é exibido displayModal-->
+      <FileUpload name="csv" :customUpload="true" @uploader="upload" :multiple="false" accept=".txt" :maxFileSize="1000000"> <!-- Componente do Vue que importa arquivos, no @uploader tem o metodo chamado quando clica para enviar o arquivo pro back-->
           <template #empty>
             <p>Arraste e solte arquivos para Upload.</p>
           </template>
@@ -100,6 +100,7 @@
 
 <script>
 
+//bibliotecas e componentes
 import Dialog from 'primevue/dialog';
 import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
@@ -115,8 +116,8 @@ import Password from 'primevue/password';
 import Tooltip from 'primevue/tooltip';
 
 export default {
-  name: 'Menu',
-  components: {
+  name: 'Menu', //nome desse compomnente
+  components: { //inicializando componentes
       Dialog,
       Button,
       FileUpload,
@@ -129,9 +130,9 @@ export default {
       AvatarGroup,
       Password
   },
-  props: {email: String},
-  data() {
-		return {
+  props: {email: String}, //propriedades da tela, recebe o email do usuario
+  data() { //dados
+		return { //inicializa variaveis e objetos
 			displayModal: false,
       displayModalUser: false,
       displayModalManual: false,
@@ -149,56 +150,52 @@ export default {
       
 		}
 	},
-  methods: {
-    openModal() {
+  methods: { //metodos
+    openModal() { //modal do upload de arquivo
       this.displayModal = true;
     },
-    openModalUser() {
+    openModalUser() { //modal usuario
       this.displayModalUser = true;
       this.exibir(this.email);
     },
-    openModalManual(){
+    openModalManual(){ //modal manual
       this.displayModalManual = true;
 
     },
-    exibir(email){
-      axios.get("http://localhost:8081/cadastro/findbyemail/"+email)
-        .then((response)=>{
-            this.user=response.data;
-            console.log(response.data)
+    exibir(email){ //recebe a prop do email para fazer a busca do usuario 
+      axios.get("http://localhost:8081/cadastro/findbyemail/"+email) //get faz a busca no back
+        .then((response)=>{ //response é a resposta q o back retorna
+            this.user=response.data; //colocando os dados q vem do back no user
       })
     },
-    upload(event){
-      console.log(event.files[0])
-      let formData = new FormData()
+    upload(event){ //metodo de enviar o arquivo
+      console.log(event.files[0]) //pega o arquivo
+      let formData = new FormData() //inicia um formdata (form com dados)
       formData.append('file', event.files[0])
-      axios.post("http://localhost:8081/upload/cliente", formData, {
+      axios.post("http://localhost:8081/upload/cliente", formData, { //envia formdata para o back pra fazer o upload do arquivo
         headers: {
            "Content-Type": "multipart/form-data",
          }
-      }).then(() => {
+      }).then(() => { //mensagem de sucesso
         this.$toast.add({severity: 'success', summary: 'Sucesso', detail: 'Upload Concluído', life: 3000});
       })
-      .catch(() => {
+      .catch(() => { //mensagem de erro
         this.$toast.add({severity: 'error', summary: 'Erro', detail: 'Erro ao importar arquivo', life: 3000});
       })
     },
-    updateUser(user){
-      user.email = this.email
+    updateUser(user){ //metodo q atualiza usuario
+      user.email = this.email //pega valor preenchido nos campos
       user.nome = this.nome
-      //ToDo: ver por que que a senha não está funcionando pra editar
-      //user.senha = this.senha
-      debugger
-        axios.put("http://localhost:8081/cadastro", user)
-        .then((response)=>{
+        axios.put("http://localhost:8081/cadastro", user) //put envia pro back pra editar
+        .then((response)=>{ //msg sucesso
             this.$toast.add({severity: 'success', summary: 'Usuário alterado com sucesso', life: 3000});
         })
-        .catch(() => {
+        .catch(() => { //exception, msg de erro
             this.$toast.add({severity: 'error', summary: 'Erro ao editar usuário', life: 3000});
         })
     }
   },
-  directives: {
+  directives: { //inicializa diretivas, coloca o tooltip pra q o codigo entenda ele como 'tooltip'
     'tooltip': Tooltip
   }
 }

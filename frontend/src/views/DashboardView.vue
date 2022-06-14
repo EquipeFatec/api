@@ -1,5 +1,5 @@
 <template>
-  <Menu :email="this.emailUsuario"></Menu>
+  <Menu :email="this.emailUsuario"></Menu> <!-- Chama o componente do menu passando a propriedade do email do usuario no :email como props-->
   <div style="margin-left:115%; width:350px">
       <div style="font-size: 40pt; text-shadow: 1px 1px 3px black;"> Hey Alexia </div>
   </div>
@@ -27,7 +27,7 @@
             <template #content>
               <div>
                 <div class="card" style="height:7rem" >
-                  <SelectButton v-model="value1" :options="options" :change="selectChange()" />
+                  <SelectButton v-model="value1" :options="options" :change="selectChange()" /> <!-- selectChange é o metodo q seleciona qnd clica no cidade ou idade -->
                     <p></p>
                   <Chart type="bar" :data="dataBarChart" :options="optionsBarChart"/>
                   </div>
@@ -82,6 +82,7 @@
 
 <script>
 
+//bibliotecas e componentes
 import Menu from "@/components/Menu.vue";
 import Card from "primevue/card";
 import axios from "axios";
@@ -92,8 +93,8 @@ import Column from 'primevue/column';
 import SelectButton from 'primevue/selectbutton';
 
 export default {
-  name: "App",
-  components: {
+  name: "App", //nome desse componente
+  components: { //chamando outros componentes pra usar no codigo
     Menu,
     Card,
     Button,
@@ -102,49 +103,49 @@ export default {
     Column,
     SelectButton,
   },
-  mounted() {
-    this.emailUsuario = this.$route.query.email
-    axios.get("http://localhost:8081/item-venda/top").then((response) => {
-      this.itens = response.data;
-      this.chartData.labels = []
+  mounted() { //mounted é executado qnd abre a tela pra trazer o q precisa qnd abre
+    this.emailUsuario = this.$route.query.email //pega o email do usuario q mandou na query do login e coloca na variavel
+    axios.get("http://localhost:8081/item-venda/top").then((response) => { //busca top 5 mais vendidos, response é a resposta do back
+      this.itens = response.data; //coloca dados do back na variavel itens
+      this.chartData.labels = [] // incia graficos
       this.chartData.datasets[0].data = []
-      response.data.map(produto => {
-        this.chartData.labels.push(produto[0])
-        this.chartData.datasets[0].data.push(produto[1])
+      response.data.map(produto => { //map é tipo foreach, vai passando dentro do array q vem do response.data e pegando produto por produto
+        this.chartData.labels.push(produto[0]) //adiciona posicao 0 do produto do array nos labels, nome do produto
+        this.chartData.datasets[0].data.push(produto[1]) // adiciona posicao 1 do produto do array nos dados, valor do produto
       })
     })
-    axios.get("http://localhost:8081/venda/total").then((response) => {
-      this.analiseValorTotal = response.data[0]
-      this.analiseQuantidadeTotal = response.data[1]
+    axios.get("http://localhost:8081/venda/total").then((response) => { //busca total de vendas
+      this.analiseValorTotal = response.data[0] //puxa posicao 0 do array q é o valor total
+      this.analiseQuantidadeTotal = response.data[1] //puxa posicao 1 do array q é a quantidade total
     })
-    axios.get("http://localhost:8081/venda/valor-mes-ano").then((response) => {
-      this.lineStylesData.datasets.labels = []
-      this.lineStylesData.datasets = [{}]
-      let groupAno = []
-      let indicesMes = []
-      let i = 0
-      response.data.map(venda => {
-        if(!indicesMes.includes(venda[2])){
-          this.lineStylesData.labels.push(this.nomeMes(venda[2]))
-          indicesMes.push(venda[2])
+    axios.get("http://localhost:8081/venda/valor-mes-ano").then((response) => { //busca vendas por mes ano
+      this.lineStylesData.datasets.labels = [] //inicializa labels do grafico de linha
+      this.lineStylesData.datasets = [{}] //inicializa dados do grafico de linha
+      let groupAno = [] //grupo pra ver quando um ano ja estiver na lista pra nao adicionar repetido
+      let indicesMes = [] // mesma coisa q acima mas pro mes
+      let i = 0 //contador de vendas do map
+      response.data.map(venda => { //map é tipo foreach q vai passando dentro do response.data pegando cada venda
+        if(!indicesMes.includes(venda[2])){ //verifica se nao tem o mes no indiceMes
+          this.lineStylesData.labels.push(this.nomeMes(venda[2])) //se naotiver chama a funcao de colocar o nome certinho do mes e adiciona no array
+          indicesMes.push(venda[2]) //adiciona o mes no indicemes pra nao repetir se cair nesse if dnv
         }
-        if(!groupAno.includes(venda[1])){
-          this.lineStylesData.datasets.push({
+        if(!groupAno.includes(venda[1])){ //mesma ideia acima so que pro ano
+          this.lineStylesData.datasets.push({ //aqui ele cria o obj pra montar o grafico
             label: venda[1],
             fill: false,
             data: [],
             tension: .4,
             borderColor: this.gerarCor(i)})
           groupAno.push(venda[1])
-          i++
+          i++ //adiciona mais um no contador
         }
-        this.lineStylesData.datasets[i].data.push(venda[0])
+        this.lineStylesData.datasets[i].data.push(venda[0]) //adiciona a venda na posicao do contador
       })
-      this.lineStylesData.datasets.splice(0, 1)
+      this.lineStylesData.datasets.splice(0, 1) //gambiarra pra primeira posicao do array q ficou vazia nao ser exibida
     })
   },
-  methods: {
-    nomeMes: function(mes){
+  methods: { //metodos/funcoes
+    nomeMes: function(mes){ //funcao q recebe o numero do mes e devolve o nome por extenso pra exibir no graf de linha
       switch(mes) {
         case 1: return 'Janeiro'
         case 2: return 'Fevereiro'
@@ -161,7 +162,7 @@ export default {
         default: return ''
       }
     },
-    gerarCor: function(i){
+    gerarCor: function(i){ //gera cor bunitinha pras linhas do grafico
       switch(i){
         case 1: return "#660066"
         case 2: return "#0052cc"
@@ -169,7 +170,7 @@ export default {
         default: return '#000'
       }
     },
-    selectChange: function(){
+    selectChange: function(){ //ve qual q foi selecionado, cidade ou idade, e coloca o grafico na variavel q ta sendo exibida pra aparecer pro ususario
       if(this.value1 == "Cidade"){
         this.dataBarChart = this.basicData1;
         this.optionsBarChart = this.basicOptions1;
@@ -180,8 +181,8 @@ export default {
       }
     }
   },
-  data() {
-    return {
+  data() { //dados
+    return { //inicializando variaveis e objetos
       displayModal: false,
       itens: [],
       produtoExibido: {},

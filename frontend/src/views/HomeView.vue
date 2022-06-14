@@ -1,13 +1,13 @@
 <template>
-  <Toast />
+  <Toast /> <!-- exibe msgs na tela -->
     <div class="row" style="margin-left:5%; margin-top:15%">
         <div>
             <Splitter style= "height:30rem; width:60rem; margin-left:40%; margin-bottom: 6em; margin-top: 0%; background-color: #F2E0F7; text-align:center">
                 <SplitterPanel class="flex align-items-center justify-content-center">
-                      <CadastroVue/>
+                      <CadastroVue/> <!-- chama componente do cadastro -->
                 </SplitterPanel>
                 <SplitterPanel class="flex align-items-center justify-content-center">
-                    <LoginVue/>
+                    <LoginVue/> <!-- chama componente do login -->
                 </SplitterPanel>
             </Splitter>
         </div>
@@ -15,6 +15,8 @@
 </template>
 
 <script>
+
+//bilbiotecas e componentes
 import Splitter from 'primevue/splitter';
 import SplitterPanel from 'primevue/splitterpanel';
 import Button from 'primevue/button';
@@ -28,7 +30,7 @@ import LoginVue from '@/components/Login.vue';
 import Toast from 'primevue/toast';
 
 export default{
-        components: {
+        components: { //chamando componentes
         Splitter,
         SplitterPanel,
         Button,
