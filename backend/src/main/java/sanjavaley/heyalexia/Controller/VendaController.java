@@ -11,15 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping(value = "/venda")
+@CrossOrigin(origins = "http://localhost:8080") //Libera a porta para o front acessar
+@RequestMapping(value = "/venda") //rota
 public class VendaController {
 
+    //instancia
     @Autowired
     private ItemVendaServiceImp service;
     @Autowired
     private VendaServiceImp vendaService;
 
+    //busca total de vendas por mes, passando como parametro, retornando uma lista
     @GetMapping(value = "/total")
     public List<String> topSellOrderByQuantidade(@RequestParam (name="mes",required = false) Integer mes){
         List<String> list = new ArrayList<>();
@@ -28,6 +30,7 @@ public class VendaController {
         return list;
     }
 
+    //busca valor total passando data inicial e data final, retorna uma string
     @GetMapping(value = "/valor-total")
     @ResponseBody
     public String valorVendaTotalPorData(@RequestParam String inicial, @RequestParam String fim){

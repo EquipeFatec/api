@@ -13,18 +13,20 @@ import sanjavaley.heyalexia.Entity.TipoProduto;
 import sanjavaley.heyalexia.Service.TipoProdutoServiceImp;
 
 @RestController
-@RequestMapping(value = "/produtotipo")
+@RequestMapping(value = "/produtotipo") //Rota
 public class TipoProdutoController {
 
+	//instancia
 	@Autowired
 	private TipoProdutoServiceImp service;
 	
-		
+	//busca todos os tipos de produto
 	@GetMapping(value = "/todos")
     public List<TipoProduto> GetAllTipoProduto() {
         return service.getAllTipoProduto();        
 	}
-	
+
+	//busca tipo por ide retorna obj de produto
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TipoProduto> findById(@PathVariable long id) {		
 		TipoProduto obj = service.BuscaPorId(id);

@@ -9,11 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-@Table(name="ESTADO")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Table(name="ESTADO") //tabela do banco associada
 public class Estado {
 	
 	@Id

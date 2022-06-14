@@ -8,7 +8,7 @@ import sanjavaley.heyalexia.Reposioty.VendaRepository;
 
 import java.util.List;
 
-
+//service = onde ficam as regras de negocio e as logicas
 @Service
 public class VendaServiceImp  {
 

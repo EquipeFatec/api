@@ -18,26 +18,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-@Table(name="ENDERECO")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Table(name="ENDERECO") //tabela do banco associada
 public class Venda {
 	
 	@Id
-    @GeneratedValue
+    @GeneratedValue //gera sequencia do id
 	@Column(name = "VENDA_ID")
 	private long id;
 	
-	@ManyToOne
+	@ManyToOne //muitas vendas podem estar associadas a um cliente
 	@JoinColumn(name = "CLIENTE_ID")
 	private Cliente clienteId;
 	
 	@Column(name = "VENDA_DATA")
 	private Date data;
 
-	@ManyToOne
+	@ManyToOne //muitas vendas podem ter um tipo de pagamento
 	@JoinColumn(name = "VENDA_PAGAMENTO_ID")	
 	private TipoPagamento pagamentoId;
 	
@@ -45,7 +45,7 @@ public class Venda {
 	private float desconto;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "venda")
+	@OneToMany(mappedBy = "venda") //uma venda pode ter varios itens de venda
 	private List<ItemVenda> itemVenda;
 	
 }

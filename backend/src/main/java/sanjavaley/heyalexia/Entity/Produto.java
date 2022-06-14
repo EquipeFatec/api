@@ -9,16 +9,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "PRODUTO")
+@Data //getters e setters
+@Builder //ajuda a montar o obj
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Entity //anotação para especificar q é entidade
+@Table(name = "PRODUTO") //tabela do banco associada
 public class Produto {
 	
 	@Id
-    @GeneratedValue
+    @GeneratedValue //gera sequencia do id
 	@Column(name = "PROD_ID")
 	private long id;
 	
@@ -28,12 +28,12 @@ public class Produto {
 	@Column(name = "PROD_VALOR", unique=false, length = 7, nullable = false)
 	private long valor;
 	
-	@ManyToOne
+	@ManyToOne //muitos produtos podem estar associados a um tipo
     @JoinColumn(name="TP_ID")
     private TipoProduto tipoProduto;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "produto") //um item de venda pode ter muitos pdodutos
 	private List<ItemVenda> itemVenda;
 	
 	

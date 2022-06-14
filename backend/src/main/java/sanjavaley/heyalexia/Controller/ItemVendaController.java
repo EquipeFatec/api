@@ -13,21 +13,21 @@ import sanjavaley.heyalexia.Entity.ItemVenda;
 import sanjavaley.heyalexia.Service.ItemVendaServiceImp;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping(value = "/item-venda")
+@CrossOrigin(origins = "http://localhost:8080") //Libera a porta para o front acessar
+@RequestMapping(value = "/item-venda") //Rota
 public class ItemVendaController {
 	
 	
-	
+	//instancia
 	@Autowired
 	private ItemVendaServiceImp service;
 	
-	
+	//busca top 5 mais vendidos, retorna como array
 	@GetMapping(value = "/top")
 	public ArrayList<String[]> topSellOrderByQuantidade(){		
 		ArrayList<String[]> lista = new ArrayList<>();
 
-		lista.addAll(service.topSell());
+		lista.addAll(service.topSell()); //adiciona os itens mais vendidos na lista
 		return lista;
 
 

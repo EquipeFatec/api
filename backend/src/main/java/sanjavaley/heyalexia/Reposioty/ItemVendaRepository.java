@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import sanjavaley.heyalexia.Entity.ItemVenda;
 
+//repository = define os metodos q irao acessar o banco
 public interface ItemVendaRepository extends JpaRepository<ItemVenda, Long>{
 	
 	@Query(nativeQuery = true ,value = "select  p.prod_nome, sum(it.itv_quantidade) as soma, sum(it.itv_valor) as valor_total "

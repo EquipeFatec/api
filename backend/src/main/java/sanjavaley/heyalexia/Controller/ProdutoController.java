@@ -11,13 +11,14 @@ import sanjavaley.heyalexia.Entity.Produto;
 import sanjavaley.heyalexia.Service.ProdutoServiceImp;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produto") //Rota
 public class ProdutoController {
-	
+
+    //instancia
 	@Autowired
 	private ProdutoServiceImp service;	
 	
-				
+	//busca todos os produtos
 	@GetMapping
     public List<Produto> GetAllProduto() {
         return service.getAllProduto();

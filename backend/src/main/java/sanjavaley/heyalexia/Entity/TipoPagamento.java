@@ -10,15 +10,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-@Table(name="TIPO_PAGAMENTO")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Table(name="TIPO_PAGAMENTO") //tabela do banco associada
 public class TipoPagamento {
 	
 	@Id
-    @GeneratedValue
+    @GeneratedValue //gera sequencia do id
 	@Column(name = "TIPO_PAG_ID")
 	private long id;
 	

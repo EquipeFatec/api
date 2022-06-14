@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import sanjavaley.heyalexia.Entity.Produto;
 import sanjavaley.heyalexia.Reposioty.ProdutoRepository;
 
+//service = onde ficam as regras de negocio e as logicas
 @Service
 public class ProdutoServiceImp  {
 

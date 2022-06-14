@@ -13,23 +13,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-@Table(name="BAIRRO")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Table(name="BAIRRO") //tabela do banco associada
 public class Bairro {
 	
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //gera sequencia do id
 	@Column(name = "BAIRRO_ID")
 	 private long id;
 	
 	 @Column(name="BAIRRO_NOME")
 	 private String Nome;
 	 
-	 @ManyToOne
+	 @ManyToOne //uma cidade pode ter muitos bairros
 	 @JoinColumn(name="CIDADE_ID")
 	 private Cidade cidadeId;
 

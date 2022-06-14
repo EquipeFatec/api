@@ -10,15 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import sanjavaley.heyalexia.Entity.Cliente;
 import sanjavaley.heyalexia.Service.ClienteServiceImp;
 
-@RestController
-@CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping(value = "/cliente")
+@RestController //Anotação do Spring que fala que é RestAPI
+@CrossOrigin(origins = "http://localhost:8080") //Libera a porta para o front acessar
+@RequestMapping(value = "/cliente") //Rota
 public class ClienteController {
 
 	
-	@Autowired
+	@Autowired //instancia
 	private ClienteServiceImp service;
-	
+
+	//busca cliente passando nome como parametro, retorna lista de clientes
 	@GetMapping(value = "/{nome}")
 	public ResponseEntity<List<Cliente>> findByNome(@PathVariable String nome){
 		try {

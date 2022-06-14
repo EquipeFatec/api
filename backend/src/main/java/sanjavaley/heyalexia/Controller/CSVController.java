@@ -33,16 +33,17 @@ import sanjavaley.heyalexia.Reposioty.EnderecoRepository;
 
 
 @Controller
-@CrossOrigin(origins = "http://localhost:8080")
-@RequestMapping(value = "/upload")
+@CrossOrigin(origins = "http://localhost:8080") //Libera a porta para o front acessar
+@RequestMapping(value = "/upload") //Rota
 public class CSVController {
 	
-	
+	//instancia
 	@Autowired
 	private ClienteRepository repository;
 	@Autowired
 	private EnderecoRepository eRepository;
-		
+
+	//envia arquivo para salvar
 	@PostMapping("/cliente")
 	public ResponseEntity<Cliente> save(@RequestParam("file") MultipartFile file) 
 throws Exception{
@@ -66,9 +67,8 @@ throws Exception{
 
 
 			cliente.add(clientes);				
-		});
-		repository.saveAll(cliente);
-		//TODO AQUI VAMOS DAR A RESPOSTA DE QUE FOI ADICIONADO COM SUCESSO
-		return new ResponseEntity<Cliente>(HttpStatus.CREATED);
+		}); //para cada registro pega as colunas do CSV e adiciona na lista de cliente
+		repository.saveAll(cliente); //salva no repository
+		return new ResponseEntity<Cliente>(HttpStatus.CREATED); //retorna que foi criado
 	}
 }

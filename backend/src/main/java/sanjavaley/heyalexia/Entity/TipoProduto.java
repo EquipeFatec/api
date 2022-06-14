@@ -7,16 +7,16 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "TIPO_PRODUTO")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Builder //ajuda a montar o objeto
+@Table(name = "TIPO_PRODUTO") //tabela do banco associada
 public class TipoProduto {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue //gera sequencia do id
     @Column(name = "TP_ID")
     private Long id;
 

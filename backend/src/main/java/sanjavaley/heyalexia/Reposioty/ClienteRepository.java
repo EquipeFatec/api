@@ -11,7 +11,7 @@ import sanjavaley.heyalexia.Entity.Cliente;
 
 import javax.persistence.Tuple;
 
-
+//repository = define os metodos q irao acessar o banco
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	

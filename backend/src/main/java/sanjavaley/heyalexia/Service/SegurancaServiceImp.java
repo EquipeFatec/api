@@ -16,6 +16,7 @@ import sanjavaley.heyalexia.Entity.Usuario;
 import sanjavaley.heyalexia.Reposioty.SegurancaRepository;
 import sanjavaley.heyalexia.Reposioty.UsuarioRepository;
 
+//service = onde ficam as regras de negocio e as logicas
 @Service
 public class SegurancaServiceImp implements SegurancaRepository {
 
@@ -23,7 +24,7 @@ public class SegurancaServiceImp implements SegurancaRepository {
     private UsuarioRepository usuarioRepo;
 
     @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')") //preautorizacao, o usuario so pode acessar esse metodo se tiver a role admin
     public Usuario cadastrarUsuario(Usuario usuario) {
         if(usuario.getNome() == null || usuario.getSenha() == null
                 || usuario.getNome().length() < 3 || usuario.getSenha().length() < 3) {
@@ -44,7 +45,7 @@ public class SegurancaServiceImp implements SegurancaRepository {
         return usuarioRepo.findAll();
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()") //verifica se o usuario esta autenticado para buscar por id
     public Usuario buscaUsuarioPorId(Long id) {
         Optional<Usuario> usuarioOptional = usuarioRepo.findById(id);
         if(usuarioOptional.isPresent()) {

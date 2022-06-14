@@ -17,29 +17,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-@Table(name="ENDERECO")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Table(name="ENDERECO") //tabela do banco associada
 public class Endereco {
 	
 	
 	@Id
-    @GeneratedValue
+    @GeneratedValue //gera sequencia do id
 	@Column(name = "ENDERECO_ID")
 	private long id;
 	
 	@Column(name = "LOGADOURO", length = 100, nullable = false)
 	private String logadouro;
 	
-	@ManyToOne
+	@ManyToOne //um bairro tem varios endereços
 	@JoinColumn(name = "BAIRRO_ID")
 	private Bairro bairroId;
 	
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "endereco")
+	@OneToMany(mappedBy = "endereco") //varios clientes podem ter um endereço
 	private List<Cliente> cliente;
 
 }

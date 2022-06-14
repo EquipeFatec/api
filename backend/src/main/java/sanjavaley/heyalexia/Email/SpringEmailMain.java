@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 public class SpringEmailMain {
 
+    //metodo que faz o envio dos emails junto com os outros packages
     public static void main(String email, String assunto, String corpo) {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
                 SpringEmailMain.class.getPackage().getName());

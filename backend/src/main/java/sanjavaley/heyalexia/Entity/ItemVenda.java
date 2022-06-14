@@ -15,16 +15,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "ITEM_VENDA")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Builder //ajuda a montar o objeto
+@Table(name = "ITEM_VENDA") //tabela do banco associada
 public class ItemVenda {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)	
+    @GeneratedValue(strategy = GenerationType.AUTO)	//gera sequencia do id
 	@Column(name = "itv_id")
 	private long id;
 	
@@ -34,11 +34,11 @@ public class ItemVenda {
 	@Column(name = "ITV_VALOR")
 	private long valor;
 	
-	@ManyToOne
+	@ManyToOne //um produto pode estar em muitos itens de venda
 	@JoinColumn(name = "PROD_ID")
 	private Produto produto;
 	
-	@ManyToOne
+	@ManyToOne //uma venda pode ter muitos itens de venda
 	@JoinColumn(name = "VENDA_ID")
 	private Venda venda;
 

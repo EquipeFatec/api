@@ -12,16 +12,16 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Entity
-@Table(name="CLIENTE")
+@AllArgsConstructor //construtor com todos os argumentos
+@NoArgsConstructor //construtor com nenhum argumento
+@Data //getters e setters
+@Entity //anotação para especificar q é entidade
+@Table(name="CLIENTE") //tabela do banco associada
 public class Cliente {
 			
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) //gera sequencia do id
 	 private Long Cliente_Id;
 	
 	 @Column(name="CLIENTE_NOME")
@@ -43,11 +43,11 @@ public class Cliente {
 	private String ClienteNascimento;
 	 
 	 //@JsonIgnore
-	 @ManyToOne//fetch = FetchType.LAZY)
+	 @ManyToOne//fetch = FetchType.LAZY) //muitos clientes podem ter um endereço
 	 @JoinColumn(name = "ENDERECO_ID")
 	 private Endereco endereco;
 
-	 public Long getIdade() throws ParseException {
+	 public Long getIdade() throws ParseException { //calcula idade
 		 Date date = new Date();
 		 DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		 String data = ClienteNascimento;
@@ -55,6 +55,4 @@ public class Cliente {
 		 long diff = (date.getTime() - dataFormatada.getTime());
 		 return TimeUnit.MILLISECONDS.toDays(diff) / 365;
 	 }
-
-
 }

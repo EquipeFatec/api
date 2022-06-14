@@ -11,12 +11,15 @@ import sanjavaley.heyalexia.Security.Login;
 
 
 @RestController
-@RequestMapping(value = "/login")
-@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping(value = "/login") //Rota
+@CrossOrigin(origins = "http://localhost:8080") //Libera a porta para o front acessar
 public class LoginController {
+
+    //instancia
     @Autowired
     private AuthenticationManager authManager;
 
+    //envia objeto de login, retorna login realizado
     @PostMapping()
     public Login autenticar(@RequestBody Login login) throws JsonProcessingException {
         Authentication auth = new UsernamePasswordAuthenticationToken(login.getEmail(), login.getPassword());
